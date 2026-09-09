@@ -8,13 +8,20 @@ https://vale-sair-demo.espa-o-de-tr-4556.chatgpt.site
 
 ## Executar localmente
 
-Os arquivos estáticos estão em `dist/`. Abra `dist/index.html` no navegador ou inicie um servidor local:
+O projeto é estático, sem build. Abra `index.html` no navegador ou inicie um servidor local:
 
 ```bash
-python3 -m http.server 8000 --directory dist
+python3 -m http.server 8000
 ```
 
 Depois acesse `http://localhost:8000`.
+
+## Estrutura
+
+```
+index.html    página única: markup, CSS e JS inline, ícones em sprite SVG
+assets/       imagens (faisca, papo, radar, role-bh)
+```
 
 ## Experiência incluída
 
