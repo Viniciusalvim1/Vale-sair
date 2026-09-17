@@ -1,1 +1,8 @@
 .DS_Store
+node_modules/
+.env
+public/js/config.local.js
+
+# Cópia bruta salva pelo navegador; a versão limpa está em prototipo/.
+Vale Sair_ Demo.html
+Vale Sair_ Demo_files/

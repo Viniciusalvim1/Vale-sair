@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eee5d2">
+  <title>Privacidade · Vale Sair?</title>
+  <meta name="description" content="Escolha o que cada pessoa pode ver sobre você.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Courier+Prime:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/estilo.css">
+  <script src="js/boot.js"></script>
+  <script type="module" src="js/paginas/configuracoes.js"></script>
+</head>
+<body data-pagina="configuracoes" data-nav="eu" data-detalhe>
+  <div class="shell">
+    <main class="app">
+      <div class="tela">
+        <div class="flow-head">
+          <a class="back" href="perfil.html" data-voltar aria-label="Voltar"><svg class="ui-icon" aria-hidden="true"><use href="assets/icons.svg#i-chevron"></use></svg></a>
+          <div><h1>PRIVA-<br>CIDADE</h1><p>Você escolhe o que cada pessoa pode ver.</p></div>
+        </div>
+        <div class="settings-list">
+          <div class="setting-row">
+            <span><strong id="rotuloRegiao">MOSTRAR MINHA REGIÃO</strong><small>Suas Turmas veem só o bairro onde você está, nunca o lugar exato.</small></span>
+            <button class="switch" type="button" role="switch" aria-checked="false" aria-labelledby="rotuloRegiao" data-preferencia="mostrar_regiao" disabled></button>
+          </div>
+          <div class="setting-row">
+            <span><strong id="rotuloToAqui">AMIGOS VEEM MEU "TÔ AQUI"</strong><small>Quando você fizer check-in, suas Turmas veem em qual lugar você está.</small></span>
+            <button class="switch" type="button" role="switch" aria-checked="false" aria-labelledby="rotuloToAqui" data-preferencia="mostrar_estou_aqui" disabled></button>
+          </div>
+          <div class="setting-row">
+            <span><strong id="rotuloCenas">PULSOS NAS CENAS</strong><small>Seus Pulsos podem aparecer no feed das Cenas abertas.</small></span>
+            <button class="switch" type="button" role="switch" aria-checked="false" aria-labelledby="rotuloCenas" data-preferencia="pulsos_em_cenas" disabled></button>
+          </div>
+          <div class="setting-row">
+            <span><strong id="rotuloMovimento">REDUZIR MOVIMENTO</strong><small>Deixa as animações mais discretas.</small></span>
+            <button class="switch" type="button" role="switch" aria-checked="false" aria-labelledby="rotuloMovimento" data-preferencia="reduzir_movimento" disabled></button>
+          </div>
+        </div>
+        <h2 class="titulo-secao">CONTA</h2>
+        <div class="kicker" id="emailConta"></div>
+        <button class="physical full" type="button" id="sair"><svg class="ui-icon" aria-hidden="true"><use href="assets/icons.svg#i-logout"></use></svg> SAIR DA CONTA</button>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

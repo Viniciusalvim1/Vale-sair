@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eee5d2">
+  <title>Salvos · Vale Sair?</title>
+  <meta name="description" content="Seus lugares salvos para depois.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Courier+Prime:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/estilo.css">
+  <script src="js/boot.js"></script>
+  <script type="module" src="js/paginas/salvos.js"></script>
+</head>
+<body data-pagina="salvos" data-nav="eu" data-detalhe>
+  <div class="shell">
+    <main class="app">
+      <div class="tela">
+        <div class="flow-head">
+          <a class="back" href="perfil.html" data-voltar aria-label="Voltar"><svg class="ui-icon" aria-hidden="true"><use href="assets/icons.svg#i-chevron"></use></svg></a>
+          <div><h1>MEUS<br>SALVOS</h1><p>Lugares para depois. Avisamos quando eles encherem.</p></div>
+        </div>
+        <div class="campo">
+          <label class="sr-only" for="busca">Buscar nos salvos</label>
+          <input id="busca" type="search" placeholder="Buscar nos salvos" autocomplete="off">
+        </div>
+        <div id="lista"><div class="carregando" role="status">CARREGANDO...</div></div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "vale-sair",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Vale Sair? · descubra como os lugares estão agora, chame sua turma e vote no próximo rolê.",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/servidor.mjs",
+    "test": "node --test \"tests/**/*.test.mjs\""
+  },
+  "engines": {
+    "node": ">=20.12"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.8"
+  }
+}

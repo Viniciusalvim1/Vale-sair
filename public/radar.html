@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eee5d2">
+  <title>Radar · Vale Sair?</title>
+  <meta name="description" content="Mapa dos lugares de BH com movimento em tempo real e amigos por perto.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Courier+Prime:wght@400;700&display=swap">
+  <link rel="stylesheet" href="vendor/maplibre-gl.css">
+  <link rel="stylesheet" href="css/estilo.css">
+  <script src="js/boot.js"></script>
+  <script type="module" src="js/paginas/radar.js"></script>
+</head>
+<body data-pagina="radar" data-nav="radar">
+  <div class="shell">
+    <main class="app">
+      <div class="tela">
+        <div class="section-head">
+          <div><div class="kicker">RADAR SOCIAL</div><h1>CADÊ TODO<br>MUNDO?</h1></div>
+          <button class="round-icon" type="button" id="minhaLocalizacao" aria-label="Mostrar onde eu estou no mapa">
+            <svg class="ui-icon" aria-hidden="true"><use href="assets/icons.svg#i-pin"></use></svg>
+          </button>
+        </div>
+        <div class="filter-row" role="group" aria-label="Filtrar o mapa">
+          <button class="filter" type="button" data-filtro="todos" aria-pressed="true">TODOS</button>
+          <button class="filter" type="button" data-filtro="amigos" aria-pressed="false">AMIGOS</button>
+          <button class="filter" type="button" data-filtro="sem-fila" aria-pressed="false">SEM FILA</button>
+          <button class="filter" type="button" data-filtro="ao-vivo" aria-pressed="false">MÚSICA AO VIVO</button>
+        </div>
+
+        <div class="map" id="mapa">
+          <div class="map-real" id="mapaReal" hidden></div>
+          <div id="pinos"></div>
+          <div class="map-acoes">
+            <button class="round-icon map-zoom" type="button" id="maisZoom" aria-label="Aproximar o mapa"><span aria-hidden="true">+</span></button>
+            <button class="round-icon map-zoom" type="button" id="menosZoom" aria-label="Afastar o mapa"><span aria-hidden="true">−</span></button>
+            <button class="round-icon" type="button" id="telaCheia" aria-label="Abrir o mapa em tela cheia">
+              <svg class="ui-icon" aria-hidden="true"><use href="assets/icons.svg#i-map"></use></svg>
+            </button>
+          </div>
+          <button class="mascot-button mascot-radar" type="button" data-mascote="radar" aria-label="Radar, o mascote do mapa">
+            <img src="assets/img/radar.png" alt=""><span class="mascot-label">TÔ OUVINDO...</span>
+          </button>
+          <div class="map-note" id="notaMapa" aria-live="polite"><strong>CARREGANDO...</strong>Procurando quem está onde.</div>
+        </div>
+        <p class="aviso" id="avisoMapa" hidden></p>
+
+        <a class="physical blue full" href="chama-lugares.html">CHAMAR MINHA TURMA</a>
+        <section id="queremSair" hidden></section>
+      </div>
+    </main>
+  </div>
+  <dialog class="modal" id="previa" aria-label="Detalhes do lugar"><div class="sheet" id="previaConteudo"></div></dialog>
+</body>
+</html>

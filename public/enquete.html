@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eee5d2">
+  <title>Chama · Vale Sair?</title>
+  <meta name="description" content="Enquete do rolê: vote e compartilhe o link com a turma.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Courier+Prime:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/estilo.css">
+  <script src="js/boot.js"></script>
+  <script type="module" src="js/paginas/enquete.js"></script>
+</head>
+<body data-pagina="enquete" data-nav="chama" data-detalhe>
+  <div class="shell">
+    <main class="app">
+      <div class="tela">
+        <div class="flow-head">
+          <a class="back" href="comunidades.html" data-voltar aria-label="Voltar"><svg class="ui-icon" aria-hidden="true"><use href="assets/icons.svg#i-chevron"></use></svg></a>
+          <div><h1 id="titulo">CHAMA<br>ABERTO</h1><p>A turma pode votar pelo link, mesmo sem ter o app.</p></div>
+        </div>
+        <div id="enquete" aria-live="polite"><div class="carregando" role="status">CARREGANDO...</div></div>
+        <section id="compartilhamento" hidden>
+          <div class="share-code"><strong id="codigo"></strong><span id="linkTexto"></span></div>
+          <div class="button-row">
+            <button class="physical lime" type="button" id="copiar">COPIAR LINK</button>
+            <a class="physical" id="whatsapp" href="https://wa.me/" target="_blank" rel="noopener">WHATSAPP</a>
+          </div>
+          <a class="physical full" id="acompanhar" href="comunidades.html" hidden>ACOMPANHAR NA TURMA</a>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

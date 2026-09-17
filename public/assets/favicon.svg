@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect x="7" y="13" width="54" height="44" fill="#111"/>
+  <rect x="3" y="9" width="54" height="44" fill="#185cf5" stroke="#111" stroke-width="4"/>
+  <circle cx="47" cy="17" r="11" fill="#ccff27" stroke="#111" stroke-width="4"/>
+  <text x="47" y="23" font-family="Impact, 'Arial Black', sans-serif" font-size="17" text-anchor="middle" fill="#111">?</text>
+  <text x="25" y="44" font-family="Impact, 'Arial Black', sans-serif" font-size="24" text-anchor="middle" fill="#fff">VS</text>
+</svg>
