@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eee5d2">
+  <title>Comunidades · Vale Sair?</title>
+  <meta name="description" content="Suas Turmas, as Cenas de BH e as Salas dos lugares.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Courier+Prime:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/estilo.css">
+  <script src="js/boot.js"></script>
+  <script type="module" src="js/paginas/comunidades.js"></script>
+</head>
+<body data-pagina="comunidades" data-nav="comunidades">
+  <div class="shell">
+    <main class="app">
+      <div class="tela">
+        <div class="section-head">
+          <div><div class="kicker">GENTE QUE CURTE O MESMO</div><h1>COMUNI-<br>DADES</h1></div>
+          <button class="round-icon" type="button" id="entrarCodigo" aria-label="Entrar numa Turma com código de convite">
+            <svg class="ui-icon" aria-hidden="true"><use href="assets/icons.svg#i-plus"></use></svg>
+          </button>
+        </div>
+
+        <div class="community-tabs" role="tablist" aria-label="Tipos de comunidade">
+          <button class="community-tab" type="button" role="tab" id="aba-turmas" data-aba="turmas" aria-controls="painel-turmas" aria-selected="true">TURMAS</button>
+          <button class="community-tab" type="button" role="tab" id="aba-cenas" data-aba="cenas" aria-controls="painel-cenas" aria-selected="false">CENAS</button>
+          <button class="community-tab" type="button" role="tab" id="aba-salas" data-aba="salas" aria-controls="painel-salas" aria-selected="false">SALAS</button>
+        </div>
+
+        <section id="painel-turmas" role="tabpanel" aria-labelledby="aba-turmas">
+          <div id="listaTurmas"><div class="carregando" role="status">CARREGANDO...</div></div>
+          <button class="physical lime full" type="button" id="novaTurma">CRIAR NOVA TURMA</button>
+          <button class="physical full" type="button" id="comCodigo">ENTRAR COM CÓDIGO</button>
+        </section>
+        <section id="painel-cenas" role="tabpanel" aria-labelledby="aba-cenas" hidden>
+          <div id="listaCenas"><div class="carregando" role="status">CARREGANDO...</div></div>
+        </section>
+        <section id="painel-salas" role="tabpanel" aria-labelledby="aba-salas" hidden>
+          <div id="listaSalas"><div class="carregando" role="status">CARREGANDO...</div></div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <dialog class="modal" id="dialogoTurma" aria-labelledby="tituloNovaTurma">
+    <div class="sheet">
+      <div class="sheet-head">
+        <h2 id="tituloNovaTurma">NOVA<br>TURMA</h2>
+        <button class="close" type="button" data-fechar aria-label="Fechar"><svg class="ui-icon" aria-hidden="true"><use href="assets/icons.svg#i-close"></use></svg></button>
+      </div>
+      <form id="formTurma" novalidate>
+        <div class="aviso erro" role="alert" hidden></div>
+        <div class="campo"><label for="nomeTurma">Nome da Turma</label><input id="nomeTurma" maxlength="40" required placeholder="Os de sempre"></div>
+        <div class="campo"><label for="descricaoTurma">Descrição (opcional)</label><input id="descricaoTurma" maxlength="140" placeholder="Quem sai toda sexta"></div>
+        <button class="physical lime full" type="submit">CRIAR TURMA</button>
+      </form>
+    </div>
+  </dialog>
+
+  <dialog class="modal" id="dialogoCodigo" aria-labelledby="tituloCodigo">
+    <div class="sheet">
+      <div class="sheet-head">
+        <h2 id="tituloCodigo">ENTRAR<br>COM CÓDIGO</h2>
+        <button class="close" type="button" data-fechar aria-label="Fechar"><svg class="ui-icon" aria-hidden="true"><use href="assets/icons.svg#i-close"></use></svg></button>
+      </div>
+      <form id="formCodigo" novalidate>
+        <div class="aviso erro" role="alert" hidden></div>
+        <div class="campo"><label for="codigoTurma">Código de convite</label><input id="codigoTurma" maxlength="6" autocapitalize="characters" autocomplete="off" required placeholder="EX: 7B2F1A"></div>
+        <button class="physical blue full" type="submit">ENTRAR NA TURMA</button>
+      </form>
+    </div>
+  </dialog>
+</body>
+</html>

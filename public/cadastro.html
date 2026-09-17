@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eee5d2">
+  <title>Criar conta · Vale Sair?</title>
+  <meta name="description" content="Crie sua conta no Vale Sair? e descubra onde vale sair agora em BH.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Courier+Prime:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/estilo.css">
+  <script src="js/boot.js"></script>
+  <script type="module" src="js/paginas/cadastro.js"></script>
+</head>
+<body data-pagina="cadastro" data-detalhe>
+  <div class="shell">
+    <main class="app">
+      <div class="tela">
+        <div class="topbar"><a class="logo" href="index.html">VALE SAIR?</a></div>
+        <div class="kicker">PRIMEIRA VEZ POR AQUI?</div>
+        <h1 class="headline">CRIA SUA<span>CONTA</span></h1>
+        <div class="aviso" id="aviso" role="alert" hidden></div>
+
+        <form id="formCadastro" novalidate>
+          <div class="campo">
+            <label for="nome">Seu nome</label>
+            <input id="nome" name="nome" maxlength="60" autocomplete="name" required>
+          </div>
+          <div class="campo">
+            <label for="username">Usuário</label>
+            <input id="username" name="username" maxlength="24" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+            <small id="usernameInfo">Letras minúsculas, números, ponto e _.</small>
+          </div>
+          <div class="campo">
+            <label for="email">E-mail</label>
+            <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required>
+          </div>
+          <div class="campo">
+            <label for="senha">Senha</label>
+            <input id="senha" name="senha" type="password" autocomplete="new-password" minlength="8" required>
+            <small>Pelo menos 8 caracteres.</small>
+          </div>
+          <button class="physical lime full" type="submit">CRIAR CONTA</button>
+          <p class="auth-rodape">
+            Você controla o que as pessoas veem: o app mostra sua região, nunca sua localização exata.<br>
+            Já tem conta? <a href="login.html">Entrar</a>
+          </p>
+        </form>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

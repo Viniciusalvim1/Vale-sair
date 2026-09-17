@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eee5d2">
+  <title>Entrar · Vale Sair?</title>
+  <meta name="description" content="Entre no Vale Sair? para ver como os lugares estão agora.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Courier+Prime:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/estilo.css">
+  <script src="js/boot.js"></script>
+  <script type="module" src="js/paginas/login.js"></script>
+</head>
+<body data-pagina="login" data-detalhe>
+  <div class="shell">
+    <main class="app">
+      <div class="tela">
+        <div class="topbar"><a class="logo" href="index.html">VALE SAIR?</a></div>
+        <div class="kicker">BORA?</div>
+        <h1 class="headline">ENTRA QUE A<span>NOITE É SUA</span></h1>
+        <div class="aviso" id="aviso" role="alert" hidden></div>
+
+        <form id="formEntrar" novalidate>
+          <div class="campo">
+            <label for="email">E-mail</label>
+            <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required>
+          </div>
+          <div class="campo">
+            <label for="senha">Senha</label>
+            <input id="senha" name="senha" type="password" autocomplete="current-password" required>
+          </div>
+          <button class="physical blue full" type="submit">ENTRAR</button>
+          <p class="auth-rodape">
+            Ainda não tem conta? <a href="cadastro.html">Criar agora</a><br>
+            <button class="link-texto" type="button" id="esqueci">Esqueci minha senha</button>
+          </p>
+        </form>
+
+        <form id="formNovaSenha" novalidate hidden>
+          <div class="campo">
+            <label for="novaSenha">Nova senha</label>
+            <input id="novaSenha" name="novaSenha" type="password" autocomplete="new-password" minlength="8" required>
+            <small>Pelo menos 8 caracteres.</small>
+          </div>
+          <button class="physical lime full" type="submit">SALVAR NOVA SENHA</button>
+        </form>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

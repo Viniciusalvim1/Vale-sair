@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <!-- Iconografia do Vale Sair?: traço grosso e arredondado, herdando a cor do texto -->
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 22c4.4 0 7-3.1 7-7.2 0-3.4-2.1-6.5-5.4-9.8.1 3-1.1 4.5-2.4 5.5.1-3.8-2-6.3-2-6.3C6.7 7.4 5 10.8 5 14.8 5 18.9 7.7 22 12 22Z"/><path d="M9.5 17.2c0 1.6 1 2.8 2.5 2.8s2.5-1.2 2.5-2.8c0-1.3-.8-2.4-2.2-3.8 0 1.1-.5 1.8-1.1 2.2 0-1.4-.7-2.3-.7-2.3-.6 1.2-1 2.5-1 3.9Z"/></symbol>
+  <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l10-2v13"/><ellipse cx="6" cy="18" rx="3" ry="2"/><ellipse cx="16" cy="16" rx="3" ry="2"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.9 4.9 7 7M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.4 5.4 0 0 0-7.6 0L12 5.8l-1.2-1.2a5.4 5.4 0 1 0-7.6 7.6L12 21l8.8-8.8a5.4 5.4 0 0 0 0-7.6Z"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4 10 14"/><path d="M18 13v6H5V6h6"/></symbol>
+  <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h3c5 0 1-12 5-12"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7Z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/><path d="M21 12a9 9 0 1 1-5-8"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20v-2c0-3 2-5 6-5s6 2 6 5v2"/><path d="M16 5a3 3 0 0 1 0 6M17 14c3 .4 4 2 4 4v2"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 2 1.7 6.3L20 10l-6.3 1.7L12 18l-1.7-6.3L4 10l6.3-1.7Z"/><path d="m19 17 .7 2.3L22 20l-2.3.7L19 23l-.7-2.3L16 20l2.3-.7Z"/></symbol>
+  <symbol id="i-profile" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c.7-5 3.4-7 8-7s7.3 2 8 7"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3Z"/><path d="M9 3v15M15 6v15"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-13h-7Z"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 7h4l2-3h4l2 3h4v13H4Z"/><circle cx="12" cy="13" r="4"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></symbol>
+  <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12 20 4l-4 16-4-6Z"/><path d="m12 14 8-10"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><path d="M8 8h12v12H8Z"/><path d="M16 8V4H4v12h4"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16Z"/><path d="m13 7 4 4"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M15 4h4v16h-4"/><path d="m10 8-4 4 4 4"/><path d="M6 12h10"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6"/><path d="m6 7 1 13h10l1-13M9 7V4h6v3"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0Z"/><path d="M8 6H4c0 3 1.5 5 4 5M16 6h4c0 3-1.5 5-4 5M12 13v4M8 21h8M9 17h6v4H9Z"/></symbol>
+</svg>

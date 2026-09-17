@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eee5d2">
+  <title>Criar · Vale Sair?</title>
+  <meta name="description" content="Crie um Chama, poste um Pulso ou avise que quer sair.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Courier+Prime:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/estilo.css">
+  <script src="js/boot.js"></script>
+  <script type="module" src="js/paginas/chama.js"></script>
+</head>
+<body data-pagina="chama" data-nav="chama">
+  <div class="shell">
+    <main class="app">
+      <div class="tela">
+        <div class="flow-head">
+          <a class="back" href="agora.html" data-voltar aria-label="Voltar"><svg class="ui-icon" aria-hidden="true"><use href="assets/icons.svg#i-chevron"></use></svg></a>
+          <div><h1>O QUE VAI<br>ROLAR?</h1><p>Escolha uma ação e coloque a noite em movimento.</p></div>
+        </div>
+        <div class="launch-grid">
+          <a class="launch-choice" href="chama-lugares.html">
+            <svg class="ui-icon" aria-hidden="true"><use href="assets/icons.svg#i-users"></use></svg>
+            <span class="kicker">DECIDIR EM GRUPO</span>
+            <strong>CRIAR UM CHAMA</strong>
+            <span>Escolha lugares, gere uma enquete e mande para a turma.</span>
+          </a>
+          <a class="launch-choice" href="pulso.html">
+            <svg class="ui-icon" aria-hidden="true"><use href="assets/icons.svg#i-camera"></use></svg>
+            <span class="kicker">MOSTRAR O AGORA</span>
+            <strong>POSTAR UM PULSO</strong>
+            <span>Foto ou vídeo de até 7 segundos, sem edição, direto do lugar.</span>
+          </a>
+          <button class="launch-choice" type="button" id="queroSair">
+            <svg class="ui-icon" aria-hidden="true"><use href="assets/icons.svg#i-pin"></use></svg>
+            <span class="kicker">ATUALIZAR STATUS</span>
+            <strong id="queroSairTitulo">QUERO SAIR</strong>
+            <span id="queroSairTexto">Avise suas Turmas sem revelar sua localização exata.</span>
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

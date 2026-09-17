@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eee5d2">
+  <title>Novo Chama · Vale Sair?</title>
+  <meta name="description" content="Escolha de 2 a 4 lugares e deixe a turma votar.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Courier+Prime:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/estilo.css">
+  <script src="js/boot.js"></script>
+  <script type="module" src="js/paginas/chama-lugares.js"></script>
+</head>
+<body data-pagina="chama-lugares" data-nav="chama" data-detalhe>
+  <div class="shell">
+    <main class="app">
+      <div class="tela">
+        <div class="flow-head">
+          <a class="back" href="chama.html" data-voltar aria-label="Voltar"><svg class="ui-icon" aria-hidden="true"><use href="assets/icons.svg#i-chevron"></use></svg></a>
+          <div><h1>ESCOLHA OS<br>LUGARES</h1><p>Selecione de 2 a 4 opções para a votação.</p></div>
+        </div>
+
+        <form id="formChama" novalidate>
+          <div class="campo">
+            <label for="turma">Para qual Turma?</label>
+            <select id="turma"><option value="">Só pelo link (sem Turma)</option></select>
+            <small>A Turma recebe um aviso. O link de votação funciona para qualquer pessoa.</small>
+          </div>
+          <div class="campo">
+            <label for="busca">Buscar lugar</label>
+            <input id="busca" type="search" placeholder="Nome ou bairro" autocomplete="off">
+          </div>
+          <div class="venue-picker" id="lugares"><div class="carregando" role="status">CARREGANDO...</div></div>
+          <div class="selection-count"><span>SELECIONADOS</span><b id="contagem" aria-live="polite">0 DE 4</b></div>
+          <div class="campo">
+            <label for="titulo">Pergunta</label>
+            <input id="titulo" maxlength="60" value="Onde vamos?">
+          </div>
+          <div class="campo">
+            <label for="quando">Quando (opcional)</label>
+            <input id="quando" type="datetime-local">
+          </div>
+          <div class="campo">
+            <label for="horas">Votação aberta por</label>
+            <select id="horas">
+              <option value="2">2 horas</option>
+              <option value="6" selected>6 horas</option>
+              <option value="24">1 dia</option>
+            </select>
+          </div>
+          <button class="physical blue full" type="submit" id="criar">CRIAR ENQUETE</button>
+        </form>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

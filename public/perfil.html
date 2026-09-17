@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eee5d2">
+  <title>Meu rolê · Vale Sair?</title>
+  <meta name="description" content="Seu perfil, nível, conquistas e jeito de sair.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Courier+Prime:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/estilo.css">
+  <script src="js/boot.js"></script>
+  <script type="module" src="js/paginas/perfil.js"></script>
+</head>
+<body data-pagina="perfil" data-nav="eu">
+  <div class="shell">
+    <main class="app">
+      <div class="tela">
+        <div class="topbar">
+          <a class="logo" href="agora.html">MEU ROLÊ</a>
+          <a class="round-icon" href="configuracoes.html" aria-label="Configurações e privacidade"><svg class="ui-icon" aria-hidden="true"><use href="assets/icons.svg#i-settings"></use></svg></a>
+        </div>
+        <div class="profile-card" id="perfil"><div class="carregando" role="status">CARREGANDO...</div></div>
+      </div>
+    </main>
+  </div>
+
+  <dialog class="modal" id="dialogoEditar" aria-labelledby="tituloEditar">
+    <div class="sheet">
+      <div class="sheet-head">
+        <h2 id="tituloEditar">EDITAR<br>PERFIL</h2>
+        <button class="close" type="button" data-fechar aria-label="Fechar"><svg class="ui-icon" aria-hidden="true"><use href="assets/icons.svg#i-close"></use></svg></button>
+      </div>
+      <form id="formPerfil" novalidate>
+        <div class="aviso erro" role="alert" hidden></div>
+        <div class="campo">
+          <label for="foto">Foto de perfil</label>
+          <input id="foto" type="file" accept="image/jpeg,image/png,image/webp">
+          <small>JPG, PNG ou WEBP de até 2 MB.</small>
+        </div>
+        <div class="campo"><label for="nome">Nome</label><input id="nome" maxlength="60" autocomplete="name" required></div>
+        <div class="campo">
+          <label for="username">Usuário</label>
+          <input id="username" maxlength="24" autocapitalize="none" spellcheck="false" required>
+          <small id="usernameInfo">Letras minúsculas, números, ponto e _.</small>
+        </div>
+        <div class="campo"><label for="bio">Bio</label><textarea id="bio" maxlength="160" placeholder="Samba no sábado, rock na sexta."></textarea></div>
+        <div class="campo">
+          <label for="regiao">Minha região</label>
+          <select id="regiao"></select>
+          <small>Aparece no seu perfil e ajuda seus amigos a te acharem.</small>
+        </div>
+        <button class="physical blue full" type="submit" id="salvarPerfil">SALVAR</button>
+      </form>
+    </div>
+  </dialog>
+</body>
+</html>

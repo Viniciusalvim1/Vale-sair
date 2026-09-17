@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eee5d2">
+  <title>Te chamaram para um rolê · Vale Sair?</title>
+  <meta name="description" content="Vote no lugar do rolê. Não precisa ter conta.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Courier+Prime:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/estilo.css">
+  <script src="js/boot.js"></script>
+  <script type="module" src="js/paginas/votar.js"></script>
+</head>
+<body data-pagina="votar" data-detalhe>
+  <div class="shell">
+    <main class="app">
+      <div class="tela">
+        <div class="topbar"><a class="logo" href="index.html">VALE SAIR?</a></div>
+        <div class="kicker" id="convite">TE CHAMARAM PARA UM ROLÊ</div>
+        <h1 class="headline">VOTA AÍ:<span>ONDE VAMOS?</span></h1>
+        <div class="campo" id="campoNome" hidden>
+          <label for="nomeConvidado">Seu nome (opcional)</label>
+          <input id="nomeConvidado" maxlength="40" autocomplete="given-name" placeholder="Pra turma saber quem votou">
+        </div>
+        <div id="enquete" aria-live="polite"><div class="carregando" role="status">CARREGANDO...</div></div>
+        <p class="auth-rodape">
+          Quer ver como os lugares estão agora antes de ir?<br>
+          <a href="cadastro.html">Crie sua conta no Vale Sair?</a>
+        </p>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

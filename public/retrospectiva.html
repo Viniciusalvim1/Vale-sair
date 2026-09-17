@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#eee5d2">
+  <title>Meu mês · Vale Sair?</title>
+  <meta name="description" content="Um retrato compartilhável do seu jeito de sair.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Courier+Prime:wght@400;700&display=swap">
+  <link rel="stylesheet" href="css/estilo.css">
+  <script src="js/boot.js"></script>
+  <script type="module" src="js/paginas/retrospectiva.js"></script>
+</head>
+<body data-pagina="retrospectiva" data-nav="eu" data-detalhe>
+  <div class="shell">
+    <main class="app">
+      <div class="tela">
+        <div class="flow-head">
+          <a class="back" href="perfil.html" data-voltar aria-label="Voltar"><svg class="ui-icon" aria-hidden="true"><use href="assets/icons.svg#i-chevron"></use></svg></a>
+          <div><h1>MEU MÊS</h1><p>Um retrato compartilhável do seu jeito de sair.</p></div>
+        </div>
+        <div class="mes-nav">
+          <button class="back" type="button" id="anterior" aria-label="Mês anterior"><svg class="ui-icon" aria-hidden="true"><use href="assets/icons.svg#i-chevron"></use></svg></button>
+          <strong id="mesAtual" aria-live="polite"></strong>
+          <button class="back" type="button" id="proximo" aria-label="Próximo mês"><svg class="ui-icon" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg></button>
+        </div>
+        <div id="cartao"><div class="carregando" role="status">CARREGANDO...</div></div>
+        <button class="physical lime full" type="button" id="compartilhar">COMPARTILHAR MEU MÊS <svg class="ui-icon" aria-hidden="true"><use href="assets/icons.svg#i-share"></use></svg></button>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
