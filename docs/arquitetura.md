@@ -68,15 +68,16 @@ Nada de regra de negócio no front: quem decide o que cada pessoa pode ver e faz
 
 | Arquivo | Papel |
 | --- | --- |
-| `js/ui/estilo-mapa.js` | o estilo do mapa em JSON e o centro de BH |
-| `js/ui/mapa.js` | carrega o MapLibre sob demanda, cria o mapa e os marcadores |
+| `js/ui/mapa.js` | carrega o Google Maps sob demanda, aplica o estilo, cria marcadores e Street View |
 | `js/paginas/radar.js` | desenha lugares e pessoas e trata os filtros |
+| `js/paginas/local.js` | abre o panorama do Street View mais próximo de cada lugar |
 
 Três decisões:
 
-1. **O estilo mora no repositório.** É uma especificação MapLibre v8 sobre os tiles vetoriais do OpenFreeMap. Cada cor e espessura de via é revisável em código, como o resto do CSS.
-2. **Os marcadores são HTML nosso.** `mapa.js` posiciona os mesmos pinos e bolhas usados nos outros componentes por meio de `Marker`, com âncoras cobertas por testes (`tests/mapa.test.mjs`).
-3. **Sem credenciais nem CDN de código.** MapLibre está em `public/vendor/`; não existe chave de mapa nem cota para configurar. Apenas os tiles e as fontes dependem da conexão com o OpenFreeMap.
+1. **O mapa preserva os lugares do Google.** Os POIs comerciais ficam visíveis e clicáveis; as poucas regras de estilo aproximam as cores da identidade do Vale Sair sem removê-los.
+2. **Os marcadores são HTML nosso.** `mapa.js` posiciona os mesmos pinos e bolhas usados nos outros componentes com `OverlayView`, com âncoras cobertas por testes (`tests/mapa-google.test.mjs`).
+3. **Carregamento sob demanda.** A Maps JavaScript API só é baixada no Radar ou ao abrir Street View. Se ela falhar, o Radar continua no mapa ilustrado.
+4. **Chave pública, porém restrita.** Como toda chave de navegador, ela aparece no código entregue à pessoa usuária. A proteção vem das restrições de domínio e de API configuradas no Google Cloud, além das cotas de uso.
 
 A localização de quem usa o app é lida no navegador e **nunca vai para o servidor**: serve para o marcador "VOCÊ", para centralizar o mapa e para calcular distância na tela.
 

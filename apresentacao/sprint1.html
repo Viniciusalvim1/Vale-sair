@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Vale Sair? · Apresentação Sprint 1</title>
+<link rel="icon" href="../public/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Courier+Prime:wght@400;700&display=swap">
+<style>
+/* Tokens copiados de public/css/tokens.css */
+:root {
+  --ink: #111; --paper: #eee5d2; --paper-light: #f8f3e8; --sand: #d7cfbd; --paper-dot: #c9bfaa;
+  --muted: #655d50; --white: #fff; --blue: #185cf5; --lime: #ccff27; --coral: #ff405b;
+  --purple: #7c39a6; --sky: #19a9f2;
+  --font-display: Impact, Anton, "Arial Black", sans-serif;
+  --font-mono: "Courier New", "Courier Prime", ui-monospace, monospace;
+  --font-body: Arial, Helvetica, sans-serif;
+  --b2: 3px solid var(--ink); --b3: 4px solid var(--ink); --b4: 5px solid var(--ink);
+}
+@page { size: 1600px 900px; margin: 0; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--sand); color: var(--ink); font-family: var(--font-body); }
+body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+.slide {
+  position: relative; width: 1600px; height: 900px; margin: 0 auto 40px; overflow: hidden;
+  padding: 70px 90px; background: var(--paper);
+  background-image: radial-gradient(var(--paper-dot) 1.6px, transparent 1.7px); background-size: 22px 22px;
+  border: var(--b4);
+}
+@media print { .slide { margin: 0; border: 0; page-break-after: always; } }
+@media screen { body { padding: 40px 0; } }
+
+.ico { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 2.35; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+
+/* Tipografia */
+.kicker { display: inline-block; padding: 8px 14px; border: var(--b2); background: var(--ink); color: var(--lime);
+  font: 700 19px/1 var(--font-mono); letter-spacing: .16em; text-transform: uppercase; transform: rotate(-1.5deg); }
+h1, h2 { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; letter-spacing: .01em; margin: 0; }
+h2 { font-size: 74px; line-height: .92; margin: 26px 0 40px; max-width: 1250px; }
+h2 em { font-style: normal; color: var(--blue); position: relative; display: inline-block; transform: rotate(-2deg); }
+h2 em::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 9px; background: var(--coral); transform: rotate(-1deg); z-index: -1; }
+.lead { font: 400 26px/1.4 var(--font-body); max-width: 1000px; margin: -18px 0 36px; }
+.mono { font-family: var(--font-mono); font-weight: 700; }
+.pag { position: absolute; right: 36px; bottom: 26px; padding: 6px 10px; border: var(--b2); background: var(--white); color: var(--ink);
+  font: 700 17px var(--font-mono); box-shadow: 3px 3px 0 var(--ink); }
+.marca { position: absolute; left: 90px; bottom: 26px; font: 900 22px var(--font-display); letter-spacing: .02em; }
+.marca b { background: var(--blue); color: var(--white); padding: 3px 7px; border: var(--b2); }
+
+/* Blocos físicos: contorno grosso + sombra dura */
+.card { position: relative; border: var(--b3); background: var(--white); box-shadow: 8px 9px 0 var(--ink); padding: 30px 30px 28px; }
+.card h3 { font: 900 34px/1 var(--font-display); text-transform: uppercase; margin: 22px 0 12px; }
+.card p { font: 400 22px/1.4 var(--font-body); margin: 0; }
+.card.lime { background: var(--lime); } .card.coral { background: var(--coral); color: var(--white); }
+.card.blue { background: var(--blue); color: var(--white); } .card.purple { background: var(--purple); color: var(--white); }
+.card.ink { background: var(--ink); color: var(--white); box-shadow: 8px 9px 0 var(--coral); }
+.badge { display: grid; place-items: center; width: 78px; height: 78px; border: var(--b3); border-radius: 50%;
+  background: var(--lime); color: var(--ink); box-shadow: 4px 5px 0 var(--ink); font-size: 40px; }
+.badge.coral { background: var(--coral); color: var(--white); } .badge.blue { background: var(--blue); color: var(--white); }
+.badge.white { background: var(--white); } .badge.purple { background: var(--purple); color: var(--white); }
+.num { position: absolute; top: -18px; right: 22px; padding: 5px 10px; border: var(--b2); background: var(--ink); color: var(--lime);
+  font: 700 20px var(--font-mono); transform: rotate(4deg); }
+.tape { position: absolute; width: 150px; height: 36px; background: rgba(204,255,39,.85); border: 2px solid rgba(17,17,17,.35); }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+.grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+.tilt-l { transform: rotate(-1.2deg); } .tilt-r { transform: rotate(1.2deg); }
+.mascote { position: absolute; z-index: 3; filter: drop-shadow(6px 7px 0 rgba(17,17,17,.18)); }
+.balao { position: absolute; z-index: 4; padding: 10px 14px; border: var(--b2); background: var(--white); color: var(--ink); box-shadow: 4px 4px 0 var(--ink);
+  font: 700 19px/1.2 var(--font-mono); text-transform: uppercase; }
+
+/* 1 · Capa */
+.capa { background: var(--sky); background-image: none; padding: 80px 100px; }
+.capa::before, .capa::after { content: ""; position: absolute; border: 6px solid var(--ink); }
+.capa::before { left: -40px; top: 120px; width: 260px; height: 50px; background: var(--lime); transform: rotate(-14deg); }
+.capa::after { right: -70px; bottom: 150px; width: 320px; height: 56px; background: var(--coral); transform: rotate(12deg); }
+.logo-g { display: flex; align-items: center; gap: 12px; margin: 34px 0 30px; filter: drop-shadow(12px 13px 0 var(--ink)); transform: rotate(-2deg); transform-origin: left; }
+.logo-g span { display: inline-block; padding: 8px 18px 4px; border: 6px solid var(--ink); background: var(--white); font: 900 170px/.85 var(--font-display); }
+.logo-g span:nth-child(2) { background: var(--coral); color: var(--white); }
+.logo-g i { display: grid; place-items: center; width: 150px; height: 150px; margin-left: 8px; border: 6px solid var(--ink); border-radius: 50%;
+  background: var(--lime); font: normal 900 116px/1 var(--font-display); }
+.capa .tagline { display: inline-block; max-width: 900px; padding: 16px 20px; border: var(--b3); background: var(--paper); box-shadow: 6px 6px 0 var(--ink);
+  font: 700 26px/1.35 var(--font-mono); transform: rotate(-1deg); }
+.capa .sprint { display: inline-block; margin-top: 30px; margin-left: 6px; padding: 14px 20px; background: var(--ink); color: var(--white); border: var(--b2);
+  box-shadow: 6px 6px 0 var(--coral); font: 700 22px var(--font-mono); letter-spacing: .08em; }
+.equipe { position: absolute; left: 100px; bottom: 60px; display: flex; flex-wrap: wrap; gap: 10px 12px; max-width: 1000px; }
+.equipe span { padding: 7px 11px; border: var(--b2); background: var(--white); font: 700 17px var(--font-mono); box-shadow: 3px 3px 0 var(--ink); }
+.equipe span:nth-child(3n+2) { transform: rotate(1.5deg); } .equipe span:nth-child(3n) { transform: rotate(-1.5deg); }
+
+/* 2 · Problema */
+.fontes { display: flex; align-items: center; gap: 26px; margin-top: 10px; }
+.fonte { text-align: center; width: 160px; }
+.fonte .badge { width: 110px; height: 110px; margin: 0 auto 16px; font-size: 52px; background: var(--white); }
+.fonte b { display: block; font: 700 19px/1.25 var(--font-mono); text-transform: uppercase; }
+.seta-trac { flex: 1; border-top: 5px dashed var(--ink); min-width: 40px; }
+.interroga { width: 170px; height: 170px; border: 6px solid var(--ink); border-radius: 50%; background: var(--coral); color: var(--white);
+  display: grid; place-items: center; font: 900 120px/1 var(--font-display); box-shadow: 8px 8px 0 var(--ink); transform: rotate(8deg); }
+.resultado { position: absolute; right: 90px; top: 250px; width: 470px; }
+ul.lista { list-style: none; padding: 0; margin: 18px 0 0; }
+ul.lista li { position: relative; padding: 12px 0 12px 44px; font: 400 22px/1.35 var(--font-body); border-bottom: 2px dashed rgba(17,17,17,.35); }
+ul.lista li:last-child { border-bottom: 0; }
+ul.lista li svg { position: absolute; left: 0; top: 13px; width: 28px; height: 28px; }
+.card.ink ul.lista li { border-color: rgba(255,255,255,.3); }
+
+/* 3 · Personas */
+.persona { padding-top: 34px; }
+.persona .topo { display: flex; gap: 20px; align-items: center; }
+.persona .av { width: 108px; height: 108px; border: var(--b3); border-radius: 50%; display: grid; place-items: center;
+  font: 900 44px var(--font-display); box-shadow: 4px 5px 0 var(--ink); flex: none; }
+.persona h3 { margin: 0 0 8px; font-size: 40px; }
+.persona small { font: 700 17px/1.3 var(--font-mono); text-transform: uppercase; }
+.persona .nec { margin-top: 30px; padding-top: 22px; border-top: 3px dashed var(--ink); }
+.persona .nec .mini { display: inline-block; padding: 5px 9px; border: 2px solid var(--ink); background: var(--ink); color: var(--lime);
+  font: 700 15px var(--font-mono); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 14px; }
+.persona .selo { position: absolute; right: 22px; bottom: -34px; width: 104px; height: 104px; border: var(--b3); border-radius: 50%;
+  display: grid; place-items: center; text-align: center; font: 900 20px/.95 var(--font-display); box-shadow: 4px 4px 0 var(--ink); transform: rotate(8deg); }
+
+/* 4 · Solução */
+.solucao { background: var(--blue); background-image: radial-gradient(rgba(255,255,255,.22) 1.6px, transparent 1.7px); background-size: 22px 22px; color: var(--white); }
+.solucao h2 em { color: var(--lime); }
+.solucao .kicker { background: var(--lime); color: var(--ink); }
+.solucao .card { color: var(--ink); min-height: 350px; }
+.solucao .marca b { background: var(--ink); }
+.niveis { display: flex; gap: 8px; margin-top: 18px; flex-wrap: wrap; }
+.niveis span { padding: 6px 9px; border: 2px solid var(--ink); font: 700 15px var(--font-mono); text-transform: uppercase; }
+
+/* 5/6 · grades de funções */
+.func { display: flex; gap: 22px; align-items: flex-start; padding: 28px; }
+.func .badge { flex: none; }
+.func h3 { margin: 4px 0 10px; font-size: 32px; }
+.func p { font-size: 21px; }
+
+/* 7 · Proposta */
+.col-tit { display: inline-flex; align-items: center; gap: 12px; padding: 10px 16px; border: var(--b3); box-shadow: 5px 5px 0 var(--ink);
+  font: 900 34px var(--font-display); text-transform: uppercase; margin-bottom: 26px; }
+.prop ul.lista li { font-size: 24px; padding: 16px 0 16px 48px; }
+
+/* 8 · Tabela */
+.tabela { border: var(--b3); box-shadow: 8px 9px 0 var(--ink); background: var(--white); }
+.tabela .lin { display: grid; grid-template-columns: 170px 460px 1fr 64px; align-items: center; border-bottom: 3px solid var(--ink); min-height: 78px; }
+.tabela .lin:last-child { border-bottom: 0; }
+.tabela .lin > div { padding: 0 22px; font-size: 22px; }
+.tabela .cab { background: var(--ink); color: var(--lime); min-height: 62px; }
+.tabela .cab > div { font: 700 18px var(--font-mono); letter-spacing: .14em; text-transform: uppercase; }
+.tabela .id { font: 700 22px var(--font-mono); }
+.tabela .id span { padding: 5px 9px; border: 2px solid var(--ink); background: var(--lime); }
+.tabela .nm { font: 900 26px var(--font-display) !important; text-transform: uppercase; }
+.tabela .lin:nth-child(odd):not(.cab) { background: var(--paper-light); }
+.tabela .lin svg { width: 30px; height: 30px; }
+
+/* 10 · Roadmap */
+.release { padding: 0; }
+.release .tit { padding: 20px 26px; border-bottom: var(--b3); font: 900 36px var(--font-display); text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; }
+.release ul { list-style: none; margin: 0; padding: 18px 26px 26px; }
+.release li { display: flex; gap: 12px; align-items: center; padding: 11px 0; font-size: 21px; border-bottom: 2px dashed rgba(17,17,17,.3); }
+.release li:last-child { border-bottom: 0; }
+.release li svg { width: 26px; height: 26px; }
+.backbone { display: flex; align-items: center; gap: 12px; margin-top: 46px; flex-wrap: wrap; }
+.backbone .mini { font: 700 17px var(--font-mono); text-transform: uppercase; letter-spacing: .1em; margin-right: 6px; }
+.backbone span.pas { padding: 8px 12px; border: var(--b2); background: var(--white); box-shadow: 3px 3px 0 var(--ink); font: 700 17px var(--font-mono); }
+.backbone svg { width: 24px; height: 24px; }
+
+/* 11 · Arquitetura */
+.arq { display: grid; grid-template-columns: 1fr 1fr; gap: 34px 40px; }
+.arq .card { display: flex; gap: 22px; align-items: center; padding: 24px 28px; }
+.arq .card h3 { margin: 0 0 8px; font-size: 32px; }
+.arq .card p { font-size: 20px; }
+.arq .full { grid-column: 1 / -1; }
+.conector { grid-column: 1 / -1; height: 0; border-top: 4px dashed var(--ink); margin: -17px 0; }
+
+/* 12 · Final */
+.final { background: var(--ink); background-image: radial-gradient(rgba(255,255,255,.12) 1.6px, transparent 1.7px); background-size: 22px 22px; color: var(--white); }
+.final .obrigado { display: inline-block; margin-top: 90px; padding: 10px 26px 2px; border: 6px solid var(--white); background: var(--coral);
+  font: 900 180px/.9 var(--font-display); box-shadow: 14px 14px 0 var(--lime); transform: rotate(-2deg); }
+.final .frase { margin: 44px 0 0; font: 700 28px/1.4 var(--font-mono); color: var(--lime); max-width: 900px; }
+.ods { display: flex; gap: 26px; margin-top: 50px; }
+.ods .card { color: var(--ink); padding: 20px 24px; display: flex; gap: 18px; align-items: center; box-shadow: 8px 9px 0 var(--white); }
+.ods .card b { display: block; font: 900 38px/1 var(--font-display); }
+.ods .card span { font: 700 18px/1.25 var(--font-mono); text-transform: uppercase; }
+.final .perg { position: absolute; left: 90px; bottom: 60px; padding: 12px 18px; background: var(--lime); color: var(--ink); border: var(--b3);
+  font: 900 36px var(--font-display); text-transform: uppercase; box-shadow: 6px 6px 0 var(--coral); transform: rotate(-2deg); }
+.final .pag { color: var(--ink); }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <!-- Ícones do sprite public/assets/icons.svg (mais 3 no mesmo traço: whatsapp/chat, star, chart) -->
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 22c4.4 0 7-3.1 7-7.2 0-3.4-2.1-6.5-5.4-9.8.1 3-1.1 4.5-2.4 5.5.1-3.8-2-6.3-2-6.3C6.7 7.4 5 10.8 5 14.8 5 18.9 7.7 22 12 22Z"/><path d="M9.5 17.2c0 1.6 1 2.8 2.5 2.8s2.5-1.2 2.5-2.8c0-1.3-.8-2.4-2.2-3.8 0 1.1-.5 1.8-1.1 2.2 0-1.4-.7-2.3-.7-2.3-.6 1.2-1 2.5-1 3.9Z"/></symbol>
+  <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l10-2v13"/><ellipse cx="6" cy="18" rx="3" ry="2"/><ellipse cx="16" cy="16" rx="3" ry="2"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.9 4.9 7 7M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.4 5.4 0 0 0-7.6 0L12 5.8l-1.2-1.2a5.4 5.4 0 1 0-7.6 7.6L12 21l8.8-8.8a5.4 5.4 0 0 0 0-7.6Z"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4 10 14"/><path d="M18 13v6H5V6h6"/></symbol>
+  <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h3c5 0 1-12 5-12"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/><path d="M21 12a9 9 0 1 1-5-8"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20v-2c0-3 2-5 6-5s6 2 6 5v2"/><path d="M16 5a3 3 0 0 1 0 6M17 14c3 .4 4 2 4 4v2"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 2 1.7 6.3L20 10l-6.3 1.7L12 18l-1.7-6.3L4 10l6.3-1.7Z"/><path d="m19 17 .7 2.3L22 20l-2.3.7L19 23l-.7-2.3L16 20l2.3-.7Z"/></symbol>
+  <symbol id="i-profile" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c.7-5 3.4-7 8-7s7.3 2 8 7"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3Z"/><path d="M9 3v15M15 6v15"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-13h-7Z"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 7h4l2-3h4l2 3h4v13H4Z"/><circle cx="12" cy="13" r="4"/></symbol>
+  <symbol id="i-drink" viewBox="0 0 24 24"><path d="M5 4h14l-2 7a5.2 5.2 0 0 1-10 0Z"/><path d="M12 16v5M8 21h8"/></symbol>
+  <symbol id="i-utensils" viewBox="0 0 24 24"><path d="M6 3v8M3 3v5a3 3 0 0 0 6 0V3M6 11v10M16 3v18M16 3c3 2 4 5 4 8h-4"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 8h14l-1 13H6Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></symbol>
+  <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12 20 4l-4 16-4-6Z"/><path d="m12 14 8-10"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16Z"/><path d="m13 7 4 4"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0Z"/><path d="M8 6H4c0 3 1.5 5 4 5M16 6h4c0 3-1.5 5-4 5M12 13v4M8 21h8M9 17h6v4H9Z"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4Z"/><path d="M8 9h8M8 12h5"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8l-5.4 2.9 1.1-6.1-4.5-4.2 6.1-.8Z"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 4v16h16"/><path d="M8 16v-4M12 16V8M16 16v-6"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6Z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M7 2h10v20H7Z"/><path d="M11 18h2"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+  <symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 2v5M15 2v5M6 7h12v4a6 6 0 0 1-12 0Z"/><path d="M12 17v5"/></symbol>
+  <symbol id="i-store" viewBox="0 0 24 24"><path d="M3 9 5 3h14l2 6"/><path d="M3 9h18c0 2-1.5 3-3 3s-3-1-3-3c0 2-1.5 3-3 3s-3-1-3-3c0 2-1.5 3-3 3S3 11 3 9Z"/><path d="M5 12v9h14v-9M10 21v-5h4v5"/></symbol>
+  <symbol id="i-cash" viewBox="0 0 24 24"><path d="M3 6h18v12H3Z"/><circle cx="12" cy="12" r="3"/><path d="M6 9v.01M18 15v.01"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol>
+</svg>
+
+<!-- 1 · CAPA -->
+<section class="slide capa">
+  <span class="kicker" style="background:var(--ink)">Trabalho Interdisciplinar I · ICEI / PUC Minas</span>
+  <h1 class="logo-g"><span>VALE</span><span>SAIR</span><i>?</i></h1>
+  <p class="tagline">Descubra onde sair de acordo com o movimento, as avaliações e o seu jeito de curtir a noite (ou o sossego).</p><br>
+  <span class="sprint">APRESENTAÇÃO DO PROJETO — SPRINT 1</span>
+  <div class="equipe">
+    <span>Augusto Mariano Moreira</span><span>Felipe Costa Amaral</span><span>Gabriel Cardoso Alvares de Oliveira</span>
+    <span>Gabriel Lima Souza</span><span>João Carvalho de Oliveira Salgado</span><span>Raphael Grossi Gomes Meireles</span>
+    <span>Vinícius Alvim Silveira</span>
+  </div>
+  <img class="mascote" src="../public/assets/img/faisca.png" alt="" style="right:120px;top:300px;width:380px;transform:rotate(6deg)">
+  <span class="balao" style="right:420px;top:290px;transform:rotate(-5deg);background:var(--lime)">Bora?!</span>
+</section>
+
+<!-- 2 · PROBLEMA -->
+<section class="slide">
+  <span class="kicker">O problema</span>
+  <h2>Escolher onde sair<br><em>ainda é complicado</em></h2>
+  <p class="lead" style="max-width:860px">Decidir para onde ir hoje costuma exigir pesquisar em vários lugares diferentes — sem nenhuma garantia de que o resultado vai valer a pena.</p>
+  <div class="fontes" style="width:900px">
+    <div class="fonte"><div class="badge" style="background:var(--lime)"><svg class="ico"><use href="#i-chat"/></svg></div><b>Grupos no WhatsApp</b></div>
+    <div class="fonte"><div class="badge"><svg class="ico"><use href="#i-camera"/></svg></div><b>Instagram e feeds</b></div>
+    <div class="fonte"><div class="badge" style="background:var(--sky)"><svg class="ico"><use href="#i-search"/></svg></div><b>Google e sites</b></div>
+    <div class="fonte"><div class="badge" style="background:var(--purple);color:#fff"><svg class="ico"><use href="#i-users"/></svg></div><b>Indicação de amigos</b></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:26px;width:900px;margin-top:36px">
+    <div class="seta-trac"></div>
+    <div class="interroga">?</div>
+    <div class="mono" style="font-size:24px;text-transform:uppercase;width:240px;line-height:1.3">Incerteza na hora de decidir</div>
+  </div>
+  <div class="card ink resultado tilt-r">
+    <span class="tape" style="left:150px;top:-20px;transform:rotate(-4deg)"></span>
+    <h3 style="margin-top:6px;color:var(--lime)">O resultado disso</h3>
+    <ul class="lista">
+      <li><svg class="ico" style="color:var(--coral)"><use href="#i-close"/></svg>Ir a um lugar vazio ou sem graça</li>
+      <li><svg class="ico" style="color:var(--coral)"><use href="#i-users"/></svg>Encontrar um ambiente lotado quando se quer sossego</li>
+      <li><svg class="ico" style="color:var(--coral)"><use href="#i-cash"/></svg>Gastar mais do que o planejado</li>
+      <li><svg class="ico" style="color:var(--coral)"><use href="#i-store"/></svg>Pequenos bares e restaurantes têm dificuldade para atrair clientes e faltam dados para decisões de gestão</li>
+    </ul>
+  </div>
+  <span class="marca"><b>VALE SAIR?</b></span><span class="pag">02/12</span>
+</section>
+
+<!-- 3 · PERSONAS -->
+<section class="slide">
+  <span class="kicker">Para quem estamos criando</span>
+  <h2>Três perfis, uma mesma decisão: <em>para onde ir?</em></h2>
+  <div class="grid3" style="margin-top:20px">
+    <div class="card persona tilt-l">
+      <div class="topo"><div class="av" style="background:var(--lime)">ML</div><div><h3>Maria Luiza</h3><small>21 anos · estudante<br>gosta de agito</small></div></div>
+      <div class="nec"><span class="mini">Principal necessidade</span><p>Quer bares badalados, cheios de gente, com eventos e promoções.</p></div>
+      <div class="selo" style="background:var(--coral);color:#fff">MODO<br>AGITO</div>
+    </div>
+    <div class="card persona">
+      <div class="topo"><div class="av" style="background:var(--blue);color:#fff">CA</div><div><h3>Cláudio André</h3><small>47 anos<br>dono de restaurante</small></div></div>
+      <div class="nec"><span class="mini">Principal necessidade</span><p>Quer atrair clientes, gerenciar o negócio e cuidar da reputação.</p></div>
+      <div class="selo" style="background:var(--ink);color:var(--lime)">DO<br>BALCÃO</div>
+    </div>
+    <div class="card persona tilt-r">
+      <div class="topo"><div class="av" style="background:var(--white)">MF</div><div><h3>Marcus Felipe</h3><small>35 anos<br>gosta de lugares calmos</small></div></div>
+      <div class="nec"><span class="mini">Principal necessidade</span><p>Quer encontrar lugares tranquilos no melhor horário.</p></div>
+      <div class="selo" style="background:var(--white)">MODO<br>SOSSEGO</div>
+    </div>
+  </div>
+  <span class="marca"><b>VALE SAIR?</b></span><span class="pag">03/12</span>
+</section>
+
+<!-- 4 · SOLUÇÃO -->
+<section class="slide solucao">
+  <span class="kicker">A solução</span>
+  <h2>Descubra o lugar certo, <em>na hora certa</em></h2>
+  <p class="lead" style="max-width:1050px">Um aplicativo que ajuda a decidir para onde ir com base em três pilares — e conecta esse público diretamente aos estabelecimentos.</p>
+  <div class="grid3" style="width:1150px">
+    <div class="card tilt-l"><span class="num">01</span><div class="badge coral"><svg class="ico"><use href="#i-flame"/></svg></div>
+      <h3>Movimento em tempo real</h3><p>Nível de lotação de cada local</p>
+      <div class="niveis"><span style="background:#fff">vazio</span><span style="background:var(--lime)">moderado</span><span style="background:var(--coral);color:#fff">cheio</span></div></div>
+    <div class="card"><span class="num">02</span><div class="badge"><svg class="ico"><use href="#i-camera"/></svg></div>
+      <h3>Avaliações e fotos</h3><p>Experiências reais de outros usuários, antes de decidir</p></div>
+    <div class="card tilt-r"><span class="num">03</span><div class="badge purple"><svg class="ico"><use href="#i-settings"/></svg></div>
+      <h3>Preferências pessoais</h3><p>Filtros para quem busca agito ou tranquilidade</p></div>
+  </div>
+  <img class="mascote" src="../public/assets/img/radar.png" alt="" style="right:40px;bottom:40px;width:300px;transform:rotate(-4deg)">
+  <span class="balao" style="right:36px;bottom:380px;transform:rotate(4deg);background:var(--lime)">Tá cheio?<br>Eu te conto.</span>
+  <span class="marca"><b>VALE SAIR?</b></span><span class="pag">04/12</span>
+</section>
+
+<!-- 5 · EXPERIÊNCIA -->
+<section class="slide">
+  <span class="kicker">Experiência do usuário</span>
+  <h2>O que dá para fazer <em>no Vale Sair?</em></h2>
+  <div class="grid3" style="row-gap:44px">
+    <div class="card func"><div class="badge"><svg class="ico"><use href="#i-search"/></svg></div><div><h3>Buscar e filtrar</h3><p>Por localização, categoria e nível de movimento</p></div></div>
+    <div class="card func"><div class="badge coral"><svg class="ico"><use href="#i-music"/></svg></div><div><h3>Eventos e promoções</h3><p>O que está rolando em cada lugar hoje</p></div></div>
+    <div class="card func"><div class="badge blue"><svg class="ico"><use href="#i-route"/></svg></div><div><h3>Comparar lugares</h3><p>Lado a lado, antes de decidir para onde ir</p></div></div>
+    <div class="card func"><div class="badge coral"><svg class="ico"><use href="#i-heart"/></svg></div><div><h3>Salvar favoritos</h3><p>Acesso rápido aos lugares preferidos</p></div></div>
+    <div class="card func"><div class="badge purple"><svg class="ico"><use href="#i-users"/></svg></div><div><h3>Planejar a saída</h3><p>Definir horário e convidar amigos</p></div></div>
+    <div class="card func"><div class="badge"><svg class="ico"><use href="#i-star"/></svg></div><div><h3>Avaliar a experiência</h3><p>Nota, comentário e fotos após a visita</p></div></div>
+  </div>
+  <span class="marca"><b>VALE SAIR?</b></span><span class="pag">05/12</span>
+</section>
+
+<!-- 6 · ESTABELECIMENTOS -->
+<section class="slide" style="background-color:var(--paper-light)">
+  <span class="kicker" style="background:var(--coral);color:#fff">Do outro lado do balcão</span>
+  <h2>Ferramentas para donos de <em>bares e restaurantes</em></h2>
+  <div class="grid2" style="width:1180px;row-gap:44px">
+    <div class="card func tilt-l"><div class="badge blue"><svg class="ico"><use href="#i-store"/></svg></div><div><h3>Cadastro completo</h3><p>Nome, endereço, fotos, cardápio e horários</p></div></div>
+    <div class="card func"><div class="badge"><svg class="ico"><use href="#i-chart"/></svg></div><div><h3>Relatório de movimento</h3><p>Horários de maior e menor movimento</p></div></div>
+    <div class="card func"><div class="badge coral"><svg class="ico"><use href="#i-chat"/></svg></div><div><h3>Gestão de avaliações</h3><p>Visualizar e responder aos clientes</p></div></div>
+    <div class="card func tilt-r"><div class="badge purple"><svg class="ico"><use href="#i-bolt"/></svg></div><div><h3>Promoções e eventos</h3><p>Cadastrar ações para atrair público</p></div></div>
+  </div>
+  <img class="mascote" src="../public/assets/img/papo.png" alt="" style="right:30px;bottom:60px;width:300px;transform:rotate(4deg)">
+  <span class="balao" style="right:70px;bottom:330px;transform:rotate(-4deg);background:var(--lime)">Responde o cliente!</span>
+  <span class="marca"><b>VALE SAIR?</b></span><span class="pag">06/12</span>
+</section>
+
+<!-- 7 · PROPOSTA DE VALOR -->
+<section class="slide prop">
+  <span class="kicker">Proposta de valor</span>
+  <h2>O que muda para <em>quem usa</em></h2>
+  <div class="grid2">
+    <div class="card tilt-l" style="background:var(--lime)">
+      <span class="col-tit" style="background:var(--ink);color:var(--lime)"><svg class="ico"><use href="#i-spark"/></svg>Ganhos</span>
+      <ul class="lista">
+        <li><svg class="ico"><use href="#i-check"/></svg>Decide onde ir sem perguntar em vários grupos</li>
+        <li><svg class="ico"><use href="#i-check"/></svg>Economiza com promoções e evita gastar mais do que o planejado</li>
+        <li><svg class="ico"><use href="#i-check"/></svg>Mais confiança com avaliações reais</li>
+        <li><svg class="ico"><use href="#i-check"/></svg>Aumenta a visibilidade e a fidelização dos estabelecimentos</li>
+      </ul>
+    </div>
+    <div class="card tilt-r" style="background:var(--coral);color:#fff">
+      <span class="col-tit" style="background:#fff;color:var(--ink)"><svg class="ico"><use href="#i-close"/></svg>Dores resolvidas</span>
+      <ul class="lista">
+        <li style="border-color:rgba(255,255,255,.45)"><svg class="ico"><use href="#i-check"/></svg>Reduz o risco de ir a um lugar vazio ou sem graça</li>
+        <li style="border-color:rgba(255,255,255,.45)"><svg class="ico"><use href="#i-check"/></svg>Evita pesquisar em vários apps e grupos diferentes</li>
+        <li style="border-color:rgba(255,255,255,.45)"><svg class="ico"><use href="#i-check"/></svg>Evita frustração com lugares que "ficaram populares" demais</li>
+        <li><svg class="ico"><use href="#i-check"/></svg>Reduz a dificuldade de atrair clientes organicamente</li>
+      </ul>
+    </div>
+  </div>
+  <span class="marca"><b>VALE SAIR?</b></span><span class="pag">07/12</span>
+</section>
+
+<!-- 8 · RF -->
+<section class="slide">
+  <span class="kicker">Especificação</span>
+  <h2>Principais <em>requisitos funcionais</em></h2>
+  <div class="tabela">
+    <div class="lin cab"><div>ID</div><div>Requisito</div><div>Descrição</div><div></div></div>
+    <div class="lin"><div class="id"><span>RF-01</span></div><div class="nm">Filtro por popularidade / tranquilidade</div><div>Filtrar locais pelo nível de movimento</div><div><svg class="ico"><use href="#i-flame"/></svg></div></div>
+    <div class="lin"><div class="id"><span>RF-02</span></div><div class="nm">Avaliações e fotos</div><div>Exibir fotos e avaliações de outros usuários</div><div><svg class="ico"><use href="#i-camera"/></svg></div></div>
+    <div class="lin"><div class="id"><span>RF-03</span></div><div class="nm">Eventos e promoções</div><div>Mostrar promoções e eventos ativos no dia</div><div><svg class="ico"><use href="#i-music"/></svg></div></div>
+    <div class="lin"><div class="id"><span>RF-04</span></div><div class="nm">Favoritos</div><div>Salvar locais como favoritos para acesso rápido</div><div><svg class="ico"><use href="#i-heart"/></svg></div></div>
+    <div class="lin"><div class="id"><span>RF-05</span></div><div class="nm">Cadastro de estabelecimento</div><div>Nome, endereço, fotos, cardápio e horários</div><div><svg class="ico"><use href="#i-store"/></svg></div></div>
+    <div class="lin"><div class="id"><span>RF-06</span></div><div class="nm">Relatórios e gestão</div><div>Movimento por horário e resposta a avaliações</div><div><svg class="ico"><use href="#i-chart"/></svg></div></div>
+  </div>
+  <span class="marca"><b>VALE SAIR?</b></span><span class="pag">08/12</span>
+</section>
+
+<!-- 9 · RNF -->
+<section class="slide">
+  <span class="kicker">Especificação</span>
+  <h2>Requisitos <em>não funcionais</em></h2>
+  <div class="grid3" style="row-gap:44px">
+    <div class="card func"><div class="badge"><svg class="ico"><use href="#i-phone"/></svg></div><div><h3>Responsividade</h3><p>Boa experiência em celulares</p></div></div>
+    <div class="card func"><div class="badge coral"><svg class="ico"><use href="#i-clock"/></svg></div><div><h3>Tempo de resposta</h3><p>Busca retorna resultados em até 3s</p></div></div>
+    <div class="card func"><div class="badge blue"><svg class="ico"><use href="#i-globe"/></svg></div><div><h3>Disponibilidade</h3><p>Sistema no ar 24h, 7 dias por semana</p></div></div>
+    <div class="card func"><div class="badge purple"><svg class="ico"><use href="#i-shield"/></svg></div><div><h3>Segurança dos dados</h3><p>Proteção de dados cadastrais e financeiros</p></div></div>
+    <div class="card func"><div class="badge white"><svg class="ico"><use href="#i-settings"/></svg></div><div><h3>Usabilidade</h3><p>Painel de gestão simples, sem treinamento técnico</p></div></div>
+    <div class="card func"><div class="badge"><svg class="ico"><use href="#i-check"/></svg></div><div><h3>Precisão dos dados</h3><p>Estimativas de lotação atualizadas com frequência</p></div></div>
+  </div>
+  <span class="marca"><b>VALE SAIR?</b></span><span class="pag">09/12</span>
+</section>
+
+<!-- 10 · ROADMAP -->
+<section class="slide">
+  <span class="kicker">Planejamento</span>
+  <h2>Do MVP às <em>próximas releases</em></h2>
+  <div class="grid3">
+    <div class="card release tilt-l"><div class="tit" style="background:var(--blue);color:#fff">Release 1 <span class="mono" style="font-size:18px;padding:4px 8px;background:var(--lime);color:var(--ink);border:2px solid var(--ink)">MVP</span></div>
+      <ul><li><svg class="ico"><use href="#i-profile"/></svg>Cadastro e login</li><li><svg class="ico"><use href="#i-search"/></svg>Busca e filtro por movimento</li>
+      <li><svg class="ico"><use href="#i-route"/></svg>Comparar 2 lugares</li><li><svg class="ico"><use href="#i-heart"/></svg>Favoritar</li><li><svg class="ico"><use href="#i-star"/></svg>Avaliar de 1 a 5</li></ul></div>
+    <div class="card release"><div class="tit" style="background:var(--coral);color:#fff">Release 2</div>
+      <ul><li><svg class="ico"><use href="#i-users"/></svg>Login social</li><li><svg class="ico"><use href="#i-music"/></svg>Eventos</li>
+      <li><svg class="ico"><use href="#i-chart"/></svg>Gráfico de movimento</li><li><svg class="ico"><use href="#i-route"/></svg>Comparar até 4 lugares</li><li><svg class="ico"><use href="#i-send"/></svg>Planejar saída com amigos</li></ul></div>
+    <div class="card release tilt-r"><div class="tit" style="background:var(--purple);color:#fff">Release 3</div>
+      <ul><li><svg class="ico"><use href="#i-spark"/></svg>Recomendações por IA</li><li><svg class="ico"><use href="#i-flame"/></svg>Previsão de movimento</li>
+      <li><svg class="ico"><use href="#i-trophy"/></svg>Grupo de saída com votação</li><li><svg class="ico"><use href="#i-share"/></svg>Exportar histórico</li></ul></div>
+  </div>
+  <div class="backbone"><span class="mini">Backbone</span>
+    <span class="pas">Gerenciar conta</span><svg class="ico"><use href="#i-chevron-right"/></svg>
+    <span class="pas">Descobrir lugares</span><svg class="ico"><use href="#i-chevron-right"/></svg>
+    <span class="pas">Avaliar e comparar</span><svg class="ico"><use href="#i-chevron-right"/></svg>
+    <span class="pas">Planejar a saída</span><svg class="ico"><use href="#i-chevron-right"/></svg>
+    <span class="pas" style="background:var(--lime)">Compartilhar experiência</span>
+  </div>
+  <span class="pag">10/12</span>
+</section>
+
+<!-- 11 · ARQUITETURA -->
+<section class="slide">
+  <span class="kicker">Visão técnica</span>
+  <h2>Arquitetura da solução <em>(proposta inicial)</em></h2>
+  <div class="arq">
+    <div class="card"><div class="badge"><svg class="ico"><use href="#i-phone"/></svg></div><div><h3>App do usuário</h3><p>Busca, mapa, filtros, favoritos, avaliações</p></div></div>
+    <div class="card"><div class="badge coral"><svg class="ico"><use href="#i-store"/></svg></div><div><h3>Painel do estabelecimento</h3><p>Cadastro, cardápio, relatórios, promoções</p></div></div>
+    <div class="card full ink" style="background:var(--blue);box-shadow:8px 9px 0 var(--ink)"><div class="badge"><svg class="ico"><use href="#i-bolt"/></svg></div><div><h3>Backend / API</h3><p>Autenticação, busca, movimento, avaliações, notificações</p></div></div>
+    <div class="card"><div class="badge purple"><svg class="ico"><use href="#i-db"/></svg></div><div><h3>Banco de dados</h3><p>Usuários, locais, avaliações, promoções, histórico</p></div></div>
+    <div class="card"><div class="badge white"><svg class="ico"><use href="#i-plug"/></svg></div><div><h3>Integrações externas</h3><p>Mapas/geolocalização, login social, push</p></div></div>
+  </div>
+  <span class="marca"><b>VALE SAIR?</b></span><span class="pag">11/12</span>
+</section>
+
+<!-- 12 · FINAL -->
+<section class="slide final">
+  <span class="kicker" style="background:var(--lime);color:var(--ink)">Valeu, turma!</span><br>
+  <span class="obrigado">OBRIGADO</span>
+  <p class="frase">Vale Sair? — decidir para onde ir, com mais confiança e menos esforço.</p>
+  <div class="ods">
+    <div class="card" style="background:var(--lime)"><div class="badge white"><svg class="ico"><use href="#i-heart"/></svg></div><div><b>ODS 3</b><span>Saúde e bem-estar</span></div></div>
+    <div class="card" style="background:var(--white)"><div class="badge coral"><svg class="ico"><use href="#i-chart"/></svg></div><div><b>ODS 8</b><span>Trabalho decente e<br>crescimento econômico</span></div></div>
+  </div>
+  <span class="perg">Perguntas?</span>
+  <img class="mascote" src="../public/assets/img/faisca.png" alt="" style="right:360px;bottom:40px;width:250px;transform:rotate(-6deg)">
+  <img class="mascote" src="../public/assets/img/radar.png" alt="" style="right:150px;bottom:250px;width:230px;transform:rotate(5deg)">
+  <img class="mascote" src="../public/assets/img/papo.png" alt="" style="right:40px;bottom:30px;width:260px;transform:rotate(3deg)">
+  <span class="pag">12/12</span>
+</section>
+</body>
+</html>
