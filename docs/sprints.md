@@ -6,8 +6,9 @@
 
 | Pessoa | Papel principal | Entregas |
 | --- | --- | --- |
-| Vinícius Alvim Silveira | (preencher) | (preencher) |
-| (preencher) | (preencher) | (preencher) |
+| Vinícius Alvim Silveira | Autenticação e perfil | Cadastro, login, recuperação de senha, controle de sessão e página "Meu rolê" (`login`, `cadastro`, `perfil`, `configuracoes`, `js/api/auth.js`, `js/api/sessao.js`) |
+| Augusto Mariano Moreira | Descoberta dos lugares | Feed "Agora", página do lugar com check-in "Tô aqui" e publicação de Pulso (`agora`, `local`, `pulso`) |
+| Gabriel Cardoso | Decisão em grupo | Turmas com código de convite e Chama: criação da enquete e votação sem conta (`comunidades`, `turma`, `chama`, `chama-lugares`, `enquete`, `c`) |
 
 ## Situação por entrega
 
