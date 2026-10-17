@@ -20,5 +20,17 @@
       <div class="tela" id="tela"><div class="carregando" role="status">CARREGANDO...</div></div>
     </main>
   </div>
+  <dialog class="modal streetview-modal" id="streetViewDialog" aria-labelledby="streetViewTitulo">
+    <div class="sheet streetview-sheet">
+      <div class="sheet-head">
+        <div><div class="kicker">VISÃO DA RUA · GOOGLE MAPS</div><h2 id="streetViewTitulo">STREET VIEW</h2></div>
+        <button class="close" type="button" data-fechar aria-label="Fechar Street View">
+          <svg class="ui-icon" aria-hidden="true"><use href="assets/icons.svg#i-close"></use></svg>
+        </button>
+      </div>
+      <div class="streetview-status" id="streetViewEstado" role="status">PROCURANDO STREET VIEW...</div>
+      <div class="streetview-canvas" id="streetViewCanvas" hidden></div>
+    </div>
+  </dialog>
 </body>
 </html>

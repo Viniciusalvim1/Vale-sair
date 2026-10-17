@@ -10,6 +10,7 @@ import {
   rotuloMovimento, rotuloFila, tempoRelativo, horario, faixaPreco, iniciais, distanciaKm, formatarDistancia,
 } from '../ui/formatos.js';
 import { midiaDoLocal, mascote, vazio, erroNaTela, compartilhar } from '../ui/componentes.js';
+import { DISTANCIA_CONFORTAVEL, prepararStreetView } from '../ui/mapa.js';
 
 const localId = parametro('id');
 const eu = usuarioAtual();
@@ -19,6 +20,8 @@ let checkin = null;
 let ultimaMensagem = 0;
 let buscando = false;
 let buscarDeNovo = false;
+let panoramaStreetView = null;
+let avisoStreetView = '';
 
 if (exigirLogin()) iniciar();
 
@@ -52,6 +55,7 @@ async function iniciar() {
     setInterval(buscarNovas, 5000);
     document.addEventListener('visibilitychange', buscarNovas);
     if (location.hash === '#chat') $('#chat').scrollIntoView();
+    if (location.hash === '#street-view') abrirStreetView(local);
   } catch (erro) {
     tratarErro(erro);
     montar($('#tela'), erroNaTela(erro.message));
@@ -98,6 +102,7 @@ function mostrar(local, salvo) {
     <div class="quick-actions">
       <a class="quick" href="https://www.google.com/maps/dir/?api=1&amp;destination=${local.latitude},${local.longitude}" target="_blank" rel="noopener">${icone('route')}ROTA</a>
       <a class="quick" href="aovivo.html?local=${local.id}">${icone('play')}AO VIVO</a>
+      <button class="quick" type="button" id="streetView">${icone('camera')}STREET VIEW</button>
       <button class="quick${ultimoPulso?.confirmei ? ' is-on' : ''}" type="button" id="confirmar" ${podeConfirmar ? '' : seguro('disabled')}
         title="Confirmar que o último Pulso continua valendo">${icone('check')}${ultimoPulso?.confirmei ? 'CONFIRMADO' : 'CONFIRMAR'}</button>
       <a class="quick" href="chama-lugares.html?local=${local.id}">${icone('users')}CHAMAR</a>
@@ -199,6 +204,9 @@ function ligar(local) {
   $('#compartilhar').addEventListener('click', () =>
     compartilhar({ titulo: local.nome, texto: `Olha como está o ${local.nome} agora:`, url: location.href }));
 
+  $('#streetView').addEventListener('click', () => abrirStreetView(local));
+  $('#streetViewDialog').addEventListener('close', () => panoramaStreetView?.setVisible(false));
+
   $('#confirmar').addEventListener('click', async (evento) => {
     const botao = evento.currentTarget;
     botao.disabled = true;
@@ -239,6 +247,50 @@ function ligar(local) {
 
   $('#chatForm').addEventListener('submit', enviarMensagem);
   $('[data-mascote="papo"]').addEventListener('click', falarPapo);
+}
+
+async function abrirStreetView(local) {
+  const dialogo = $('#streetViewDialog');
+  const canvas = $('#streetViewCanvas');
+  const estado = $('#streetViewEstado');
+  $('#streetViewTitulo').textContent = local.nome;
+  dialogo.showModal();
+
+  if (panoramaStreetView) {
+    canvas.hidden = false;
+    estado.hidden = !avisoStreetView;
+    panoramaStreetView.setVisible(true);
+    return;
+  }
+
+  estado.hidden = false;
+  estado.classList.remove('nota');
+  estado.textContent = 'PROCURANDO STREET VIEW...';
+  canvas.hidden = false;
+  canvas.setAttribute('aria-busy', 'true');
+  try {
+    const visao = await prepararStreetView(canvas, {
+      lat: Number(local.latitude),
+      lng: Number(local.longitude),
+    });
+    panoramaStreetView = visao.panorama;
+    // A imagem de rua mais próxima nem sempre é a porta: no Mercado Central o
+    // carro do Google passou a 67 m. Melhor dizer do que deixar a pessoa achar
+    // que está olhando a fachada errada.
+    avisoStreetView = visao.metros > DISTANCIA_CONFORTAVEL
+      ? `IMAGEM DE RUA MAIS PRÓXIMA: ${visao.metros} M DAQUI`
+      : '';
+    estado.classList.add('nota');
+    estado.textContent = avisoStreetView;
+    estado.hidden = !avisoStreetView;
+  } catch (erro) {
+    canvas.hidden = true;
+    montar(estado, html`${erro.message}
+      <a href="https://www.google.com/maps/@?api=1&amp;map_action=pano&amp;viewpoint=${local.latitude},${local.longitude}"
+        target="_blank" rel="noopener">ABRIR NO GOOGLE MAPS ↗</a>`);
+  } finally {
+    canvas.removeAttribute('aria-busy');
+  }
 }
 
 async function enviarMensagem(evento) {

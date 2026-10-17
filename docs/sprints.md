@@ -21,7 +21,7 @@ As entregas são as do enunciado do TI2.
 | 4 | Desenvolvimento dos artefatos | **parcial** | Matriz CSD, Mapa de Stakeholders e Roteiro de Entrevistas já feitos; falta consolidar as entrevistas |
 | 5 | Consumo da API RESTful do Supabase com JavaScript | **feito** | `public/js/api/`, `docs/api-rest.md` |
 | 6 | Autenticação e autorização de usuários | **feito** | `public/js/api/auth.js` + RLS na migration de segurança |
-| 7 | Programação das funcionalidades e testes | **feito** para o MVP | 20 telas; `npm test` com 31 testes |
+| 7 | Programação das funcionalidades e testes | **feito** para o MVP | 20 telas; `npm test` com 34 testes |
 | 8 | Daily meetings e retrospectivas | **em aberto** | registrar abaixo |
 | 9 | Publicação em servidor na Internet | **pendente** | ver o fim do README |
 | 10 | Documentação do projeto | **feito** | `README.md` e `docs/` |

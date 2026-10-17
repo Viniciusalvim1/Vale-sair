@@ -1,0 +1,198 @@
+{
+  "variant": "light",
+  "backgroundColor": "#F6F4EA",
+  "metadata": {
+    "name": "Vale Sair - Bump Social Map",
+    "description": "Mapa claro e social inspirado na linguagem visual do Bump"
+  },
+  "styles": [
+    {
+      "id": "natural.base",
+      "geometry": {
+        "fillColor": "#F6F4EA"
+      }
+    },
+    {
+      "id": "natural.land",
+      "geometry": {
+        "fillColor": "#F6F4EA"
+      },
+      "label": {
+        "textFillColor": "#536069",
+        "textStrokeColor": "#FFFFFF",
+        "textStrokeWeight": 4
+      }
+    },
+    {
+      "id": "infrastructure.urbanArea",
+      "geometry": {
+        "fillColor": "#F3F1E8"
+      }
+    },
+    {
+      "id": "infrastructure.building",
+      "geometry": {
+        "fillColor": "#EFEEE6",
+        "strokeColor": "#DEDDD4",
+        "strokeWeight": 1
+      },
+      "label": {
+        "textFillColor": "#65727A",
+        "textStrokeColor": "#FFFFFF"
+      }
+    },
+    {
+      "id": "infrastructure.roadNetwork",
+      "geometry": {
+        "fillColor": "#FFFFFF",
+        "strokeColor": "#D6DFDA",
+        "strokeWeight": 1
+      },
+      "label": {
+        "textFillColor": "#56636B",
+        "textStrokeColor": "#FFFFFF",
+        "textStrokeWeight": 4
+      }
+    },
+    {
+      "id": "infrastructure.roadNetwork.road.local",
+      "geometry": {
+        "fillColor": "#FFFFFF",
+        "strokeColor": "#E0E7E3"
+      },
+      "label": {
+        "visible": false
+      }
+    },
+    {
+      "id": "infrastructure.roadNetwork.road.arterial",
+      "geometry": {
+        "fillColor": "#FBFDFC",
+        "strokeColor": "#CDD9D3",
+        "strokeWeight": 2
+      }
+    },
+    {
+      "id": "infrastructure.roadNetwork.road.highway",
+      "geometry": {
+        "fillColor": "#DFF2C8",
+        "strokeColor": "#A9CE87",
+        "strokeWeight": 2
+      },
+      "label": {
+        "visible": false,
+        "textFillColor": "#35583B",
+        "textStrokeColor": "#F7FFE9"
+      }
+    },
+    {
+      "id": "infrastructure.railwayTrack",
+      "geometry": {
+        "strokeColor": "#AEBAC0",
+        "strokeOpacity": 0.65
+      }
+    },
+    {
+      "id": "natural.water",
+      "geometry": {
+        "fillColor": "#7DCFF2"
+      },
+      "label": {
+        "textFillColor": "#2879A5",
+        "textStrokeColor": "#BDEEFF",
+        "textStrokeWeight": 3
+      }
+    },
+    {
+      "id": "natural.land.landCover.forest",
+      "geometry": {
+        "fillColor": "#ADEC7F"
+      }
+    },
+    {
+      "id": "pointOfInterest.recreation.park",
+      "geometry": {
+        "fillColor": "#B9EE91"
+      },
+      "label": {
+        "pinFillColor": "#61C768",
+        "pinGlyphColor": "#FFFFFF",
+        "pinOutlineColor": "#FFFFFF",
+        "textFillColor": "#39754D",
+        "textStrokeColor": "#EEFFE8"
+      }
+    },
+    {
+      "id": "pointOfInterest",
+      "label": {
+        "pinFillColor": "#718A98",
+        "pinGlyphColor": "#FFFFFF",
+        "pinOutlineColor": "#FFFFFF",
+        "textFillColor": "#536069",
+        "textStrokeColor": "#FFFFFF",
+        "textStrokeWeight": 4
+      }
+    },
+    {
+      "id": "pointOfInterest.foodAndDrink",
+      "label": {
+        "pinFillColor": "#FF405B",
+        "pinGlyphColor": "#FFFFFF",
+        "pinOutlineColor": "#FFFFFF",
+        "textFillColor": "#8F2638",
+        "textStrokeColor": "#FFFFFF"
+      }
+    },
+    {
+      "id": "pointOfInterest.foodAndDrink.bar",
+      "label": {
+        "pinFillColor": "#B35EFF",
+        "pinGlyphColor": "#FFFFFF",
+        "pinOutlineColor": "#FFFFFF"
+      }
+    },
+    {
+      "id": "pointOfInterest.foodAndDrink.cafe",
+      "label": {
+        "pinFillColor": "#FF9D42",
+        "pinGlyphColor": "#FFFFFF",
+        "pinOutlineColor": "#FFFFFF"
+      }
+    },
+    {
+      "id": "pointOfInterest.entertainment",
+      "label": {
+        "pinFillColor": "#B35EFF",
+        "pinGlyphColor": "#FFFFFF",
+        "pinOutlineColor": "#FFFFFF",
+        "textFillColor": "#7136A6",
+        "textStrokeColor": "#FFFFFF"
+      }
+    },
+    {
+      "id": "pointOfInterest.retail",
+      "label": {
+        "pinFillColor": "#1877F2",
+        "pinGlyphColor": "#FFFFFF",
+        "pinOutlineColor": "#FFFFFF"
+      }
+    },
+    {
+      "id": "pointOfInterest.emergency.hospital",
+      "geometry": {
+        "fillColor": "#FFE1E6"
+      },
+      "label": {
+        "pinFillColor": "#FF405B",
+        "pinGlyphColor": "#FFFFFF",
+        "pinOutlineColor": "#FFFFFF"
+      }
+    },
+    {
+      "id": "infrastructure.transitStation",
+      "label": {
+        "visible": false
+      }
+    }
+  ]
+}

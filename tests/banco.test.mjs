@@ -82,7 +82,7 @@ test('cadastro cria perfil e preferências; username repetido ganha sufixo', asy
 
 test('visitante sem conta lê lugares, mas não perfis, pulsos ou votos', async () => {
   await como(null, async () => {
-    assert.equal((await sql('select nome from public.locais')).length, 8);
+    assert.equal((await sql('select nome from public.locais')).length, 18);
     await assert.rejects(sql('select * from public.profiles'), /permission denied/);
     await assert.rejects(sql('select * from public.pulsos'), /permission denied/);
     await assert.rejects(sql('select * from public.votos'), /permission denied/);
@@ -103,12 +103,12 @@ test('preferências são privadas e ninguém edita o próprio XP', async () => {
 });
 
 test('pulso: autor vem do login, rende XP e a conquista Primeiro Pulso', async () => {
-  const galpao = await idDoLocal('galpao-54');
+  const obra = await idDoLocal('a-obra');
   const pulso = await como(ANA, () =>
     um(
       `insert into public.pulsos (local_id, movimento, fila_minutos)
        values ($1, 'cheio', 8) returning autor_id`,
-      [galpao],
+      [obra],
     ),
   );
   assert.equal(pulso.autor_id, ANA);
@@ -118,18 +118,18 @@ test('pulso: autor vem do login, rende XP e a conquista Primeiro Pulso', async (
 });
 
 test('antispam: outro pulso no mesmo lugar em menos de 10 minutos é recusado', async () => {
-  const galpao = await idDoLocal('galpao-54');
+  const obra = await idDoLocal('a-obra');
   await como(ANA, () =>
-    assert.rejects(sql(`insert into public.pulsos (local_id, movimento) values ($1, 'lotado')`, [galpao]), /há pouco/),
+    assert.rejects(sql(`insert into public.pulsos (local_id, movimento) values ($1, 'lotado')`, [obra]), /há pouco/),
   );
 });
 
 test('não dá para forjar o autor nem confirmar o próprio pulso', async () => {
-  const galpao = await idDoLocal('galpao-54');
+  const obra = await idDoLocal('a-obra');
   const { id } = await um('select id from public.pulsos where autor_id = $1', [ANA]);
   await como(ANA, async () => {
     await assert.rejects(
-      sql(`insert into public.pulsos (local_id, movimento, autor_id) values ($1, 'animado', $2)`, [galpao, BETO]),
+      sql(`insert into public.pulsos (local_id, movimento, autor_id) values ($1, 'animado', $2)`, [obra, BETO]),
       /permission denied/,
     );
     await assert.rejects(sql('insert into public.pulso_confirmacoes (pulso_id) values ($1)', [id]), /row-level security/);
@@ -143,7 +143,7 @@ test('confirmação de outra pessoa dá XP ao autor e aparece no status do lugar
   assert.equal((await xpDe(ANA)) - antes, 5);
 
   const status = await como(CAIO, () =>
-    um(`select movimento, fila_minutos, confirmacoes, confianca from public.locais_status where slug = 'galpao-54'`),
+    um(`select movimento, fila_minutos, confirmacoes, confianca from public.locais_status where slug = 'a-obra'`),
   );
   assert.deepEqual({ ...status }, { movimento: 'cheio', fila_minutos: 8, confirmacoes: 1, confianca: 'media' });
 
@@ -208,11 +208,11 @@ test('chama: 2 a 4 lugares, avisa a turma e aceita voto pelo link sem conta', as
 });
 
 test('radar: amigo aparece no lugar, só na região ou some, conforme a privacidade', async () => {
-  const galpao = await idDoLocal('galpao-54');
-  await como(BETO, () => sql('insert into public.checkins (local_id) values ($1)', [galpao]));
+  const obra = await idDoLocal('a-obra');
+  await como(BETO, () => sql('insert into public.checkins (local_id) values ($1)', [obra]));
   const radar = () => como(ANA, () => sql('select situacao, local_nome, regiao from public.amigos_por_perto()'));
 
-  assert.deepEqual((await radar()).map((a) => ({ ...a })), [{ situacao: 'no_local', local_nome: 'Galpão 54', regiao: 'Savassi' }]);
+  assert.deepEqual((await radar()).map((a) => ({ ...a })), [{ situacao: 'no_local', local_nome: 'A Obra', regiao: 'Savassi' }]);
 
   await como(BETO, () => sql('update public.preferencias set mostrar_estou_aqui = false where usuario_id = $1', [BETO]));
   assert.deepEqual((await radar()).map((a) => ({ ...a })), [{ situacao: 'na_regiao', local_nome: null, regiao: 'Savassi' }]);
@@ -222,7 +222,7 @@ test('radar: amigo aparece no lugar, só na região ou some, conforme a privacid
 
   // quem não divide turma não vê ninguém; o lugar mostra só a contagem
   assert.equal((await como(CAIO, () => sql('select * from public.amigos_por_perto()'))).length, 0);
-  const status = await como(CAIO, () => um(`select pessoas_agora from public.locais_status where slug = 'galpao-54'`));
+  const status = await como(CAIO, () => um(`select pessoas_agora from public.locais_status where slug = 'a-obra'`));
   assert.equal(status.pessoas_agora, 1);
   assert.equal((await como(ANA, () => sql('select * from public.checkins'))).length, 0);
 });
@@ -243,12 +243,12 @@ test('quero sair avisa quem divide turma, uma vez só', async () => {
 });
 
 test('sala: mensagem sai em nome próprio e o antiflood segura a sexta seguida', async () => {
-  const galpao = await idDoLocal('galpao-54');
+  const obra = await idDoLocal('a-obra');
   await como(ANA, async () => {
     for (let i = 0; i < 5; i += 1) {
-      await sql('insert into public.mensagens (local_id, conteudo) values ($1, $2)', [galpao, `  oi ${i}  `]);
+      await sql('insert into public.mensagens (local_id, conteudo) values ($1, $2)', [obra, `  oi ${i}  `]);
     }
-    await assert.rejects(sql(`insert into public.mensagens (local_id, conteudo) values ($1, 'mais uma')`, [galpao]), /Calma/);
+    await assert.rejects(sql(`insert into public.mensagens (local_id, conteudo) values ($1, 'mais uma')`, [obra]), /Calma/);
   });
   const primeira = await como(BETO, () => um('select conteudo, autor_username, oficial from public.mensagens_sala order by id limit 1'));
   assert.deepEqual({ ...primeira }, { conteudo: 'oi 0', autor_username: 'ana', oficial: false });
@@ -269,19 +269,19 @@ test('perfil e retrospectiva trazem os números da pessoa', async () => {
   assert.equal(resumo.pulsos, 1);
   assert.equal(resumo.lugares, 1);
   assert.equal(resumo.turmas, 1);
-  assert.deepEqual(resumo.estilo, [{ nome: 'Bar', pct: 100 }]);
+  assert.deepEqual(resumo.estilo, [{ nome: 'Balada', pct: 100 }]);
   assert.deepEqual(resumo.conquistas.map((c) => c.codigo).sort(), ['faisca', 'primeiro_pulso']);
 
   const mes = await como(ANA, async () => (await um('select public.minha_retrospectiva() as m')).m);
   assert.equal(mes.roles, 1);
   assert.equal(mes.lugares_novos, 1);
   assert.equal(mes.regiao_favorita, 'Savassi');
-  assert.equal(mes.estilo, 'Pop');
+  assert.equal(mes.estilo, 'Rock');
 });
 
 test('cena: ranking agregado e pulsos só de quem autorizou', async () => {
-  const autentico = await idDoLocal('autentico');
-  await como(ANA, () => sql(`insert into public.pulsos (local_id, movimento) values ($1, 'animado')`, [autentico]));
+  const casaDoSamba = await idDoLocal('casa-do-samba-resenha');
+  await como(ANA, () => sql(`insert into public.pulsos (local_id, movimento) values ($1, 'animado')`, [casaDoSamba]));
 
   const doSamba = () => como(BETO, () => sql(`select id from public.pulsos_da_cena('samba-bh')`));
   assert.equal((await doSamba()).length, 0);
@@ -289,7 +289,7 @@ test('cena: ranking agregado e pulsos só de quem autorizou', async () => {
   assert.equal((await doSamba()).length, 1);
 
   const ranking = await como(BETO, () => sql(`select posicao, nome, pulsos_30d from public.ranking_da_cena('samba-bh')`));
-  assert.deepEqual({ ...ranking[0] }, { posicao: 1, nome: 'Autêntico', pulsos_30d: 1 });
+  assert.deepEqual({ ...ranking[0] }, { posicao: 1, nome: 'Casa do Samba Resenha', pulsos_30d: 1 });
 });
 
 test('funções internas não ficam expostas pela API', async () => {

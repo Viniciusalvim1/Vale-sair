@@ -1,4 +1,4 @@
-// Radar: mapa de verdade (MapLibre + OpenFreeMap) com os lugares nas
+// Radar: Google Maps com os lugares nas
 // coordenadas reais e os amigos conforme a privacidade de cada um. Se o mapa
 // não abrir (navegador sem WebGL, por exemplo), cai no mapa ilustrado.
 import { exigirLogin } from '../api/auth.js';
@@ -8,8 +8,7 @@ import { html, montar, icone, $, $$ } from '../ui/dom.js';
 import { avisar, tratarErro, reiniciarAnimacao, movimentoReduzido } from '../ui/feedback.js';
 import { criarProjecao, rotuloMovimento, iniciais, distanciaKm, formatarDistancia } from '../ui/formatos.js';
 import { avatar, linhaDeStatus, resumoDoLocal, seloMovimento } from '../ui/componentes.js';
-import { prepararMapa } from '../ui/mapa.js';
-import { CENTRO_BH } from '../ui/estilo-mapa.js';
+import { prepararMapa, CENTRO_BH } from '../ui/mapa.js';
 
 const ANIMADOS = ['animado', 'cheio', 'lotado'];
 
@@ -22,6 +21,21 @@ let controle = null; // mapa real; null significa mapa ilustrado
 let projetar = () => ({ x: 50, y: 50 });
 
 const ponto = (item) => ({ lat: Number(item.latitude), lng: Number(item.longitude) });
+
+const CATEGORIAS_DO_PINO = {
+  bar: ['drink', 'bar'],
+  boteco: ['drink', 'bar'],
+  restaurante: ['utensils', 'restaurante'],
+  mercado: ['bag', 'mercado'],
+  balada: ['music', 'balada'],
+  'casa-de-show': ['music', 'show'],
+};
+
+function visualDaCategoria(categoria = '') {
+  const chave = categoria.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/\s+/g, '-');
+  return CATEGORIAS_DO_PINO[chave] ?? ['pin', 'local'];
+}
 
 if (exigirLogin()) iniciar();
 
@@ -78,9 +92,11 @@ function elemento(marcacao) {
 }
 
 function pinoHtml(local, estilo = '') {
-  const conteudo = local.pessoas_agora > 0 ? local.pessoas_agora : icone(rotuloMovimento(local.movimento).icone);
-  return html`<button class="pin ${local.movimento ?? ''}" type="button" data-local="${local.id}" style="${estilo}"
-    aria-label="${local.nome}: ${linhaDeStatus(local)}"><span>${conteudo}</span></button>`;
+  const [iconeCategoria, classeCategoria] = visualDaCategoria(local.categoria);
+  return html`<button class="pin ${local.movimento ?? ''} categoria-${classeCategoria}" type="button" data-local="${local.id}" style="${estilo}"
+    aria-label="${local.nome}: ${linhaDeStatus(local)}"><span class="pin-glyph">${icone(iconeCategoria)}</span><span class="pin-nome" aria-hidden="true">${local.nome}</span>${
+      local.pessoas_agora > 0 ? html`<b class="pin-count">${local.pessoas_agora}</b>` : ''
+    }</button>`;
 }
 
 function amigoHtml(amigo, estilo = '', comNome = false) {
@@ -207,8 +223,9 @@ function abrirPrevia(local) {
       ${seloMovimento(local.movimento)}
     </div>
     ${aqui.length ? html`<p class="kicker">${aqui.join(', ')} ${aqui.length > 1 ? 'estão' : 'está'} aqui</p>` : ''}
-    <div class="button-row">
+    <div class="button-row preview-actions">
       <a class="physical" href="aovivo.html?local=${local.id}">AO VIVO</a>
+      <a class="physical lime" href="local.html?id=${local.id}#street-view">STREET VIEW</a>
       <a class="physical blue" href="local.html?id=${local.id}">VER LOCAL</a>
     </div>`);
   $('#previa').showModal();

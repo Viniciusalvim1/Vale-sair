@@ -104,6 +104,71 @@
 /* ---------- Agora ---------- */
 [data-pagina="agora"] .pulse-card { margin-bottom: 72px; }
 .mascot-faisca { right: -28px; bottom: -67px; width: 124px; transform: rotate(5deg); }
+
+/* Pilha de polaroids: todas na mesma célula do grid, a do topo arrasta */
+.pilha { position: relative; display: grid; margin-bottom: 64px; outline: none; }
+.pilha:focus-visible { outline: 3px dashed var(--blue); outline-offset: 8px; }
+.pilha .tag-top { z-index: 6; }
+.pilha .mascot-faisca { bottom: -60px; }
+[data-pagina="agora"] .pilha .polaroid {
+  grid-area: 1 / 1;
+  margin: 0 6px;
+  padding-bottom: 10px;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  transition: transform .34s var(--ease-drop), opacity .24s ease;
+}
+.pilha .polaroid img, .pilha .polaroid video { pointer-events: none; -webkit-user-drag: none; }
+.pilha .polaroid .tag-bottom { bottom: 52px; }
+.pilha .polaroid[data-pos="0"] { z-index: 3; transform: rotate(-1deg); }
+.pilha .polaroid[data-pos="1"] { z-index: 2; transform: translate(10px, 8px) rotate(3deg) scale(.97); }
+.pilha .polaroid[data-pos="2"] { z-index: 1; transform: translate(-10px, 14px) rotate(-4deg) scale(.94); }
+.pilha .polaroid[data-pos="oculto"] { z-index: 0; opacity: 0; transform: scale(.9); pointer-events: none; }
+/* a animação de entrada fica na pilha: com "fill: both" na polaroid ela
+   travaria o transform e o arraste não mexeria a foto */
+[data-pagina="agora"] .tela .pilha .polaroid { animation: none; }
+.tela .pilha { animation: pilhaDrop .52s .12s var(--ease-drop) both; }
+@keyframes pilhaDrop {
+  0% { opacity: 0; transform: translateY(44px) rotate(4deg) scale(.92); }
+  70% { transform: translateY(-4px) rotate(-1deg) scale(1.01); }
+  100% { opacity: 1; transform: none; }
+}
+.pilha .polaroid:not([data-pos="0"]) > span { visibility: hidden; }
+.pilha .polaroid.arrastando { cursor: grabbing; transition: none; }
+.pilha .polaroid.saindo { z-index: 4; opacity: 0; transition: transform .32s ease-in, opacity .32s ease-in; }
+
+.polaroid-legenda {
+  overflow: hidden;
+  margin: 12px 6px 0;
+  font: 700 15px/1.2 var(--font-mono);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.carimbo {
+  position: absolute;
+  top: 34px;
+  z-index: 5;
+  padding: 6px 10px;
+  border: 4px solid currentColor;
+  background: rgba(255, 255, 255, .85);
+  font: 900 30px/1 var(--font-display);
+  opacity: 0;
+  pointer-events: none;
+}
+.carimbo-bora { right: 22px; color: var(--blue); opacity: var(--bora, 0); transform: rotate(12deg); }
+.carimbo-passa { left: 22px; color: var(--coral); opacity: var(--passa, 0); transform: rotate(-12deg); }
+
+.pilha-controles {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin: 0 0 18px;
+}
+.pilha-controles .round-icon { font: 900 22px/1 var(--font-display); }
+.pilha-contador { min-width: 64px; font: 700 13px var(--font-mono); text-align: center; }
 .mascot-faisca .mascot-label { right: 77px; bottom: 10px; background: var(--lime); transform: rotate(-5deg); }
 
 /* ---------- Radar ---------- */
@@ -195,8 +260,8 @@
 .mascot-radar { right: -7px; top: 304px; width: 118px; transform: rotate(-4deg); }
 .mascot-radar .mascot-label { right: 70px; top: -2px; background: var(--white); transform: rotate(3deg); }
 
-/* ---------- Radar com o mapa de verdade (MapLibre + OpenFreeMap) ---------- */
-.map-real { position: absolute; inset: 0; }
+/* ---------- Radar com Google Maps ---------- */
+.map-real { position: absolute; inset: 0; background: #e9eeeb; }
 /* com o mapa real, o quadro vira só a moldura: sem trama nem o rio desenhado */
 .map.com-mapa { background-image: none; background-color: var(--paper); }
 .map.com-mapa::after { display: none; }
@@ -207,15 +272,107 @@
 .map.com-mapa .mascot-radar { top: auto; right: -4px; bottom: 6px; width: 96px; }
 .map.com-mapa .mascot-radar .mascot-label { right: 58px; top: 10px; }
 
-/* o MapLibre escreve no transform da caixa do marcador; assim o pino
-   continua com a rotação dele e a bolha do amigo com o formato dela */
-.marcador { position: relative; cursor: pointer; }
+/* O OverlayView posiciona a caixa externa; pino e bolha mantêm seu desenho. */
+.marcador { position: absolute; cursor: pointer; isolation: isolate; }
 .marcador .pin,
 .marcador .friend-dot { position: relative; left: auto; top: auto; margin: 0; }
+.map-real .friend-dot {
+  width: 56px;
+  height: 56px;
+  border: 4px solid var(--white);
+  outline: 2px solid rgba(22, 24, 29, .22);
+  box-shadow: 0 8px 18px rgba(22, 24, 29, .24);
+}
+/* Nossos lugares viram adesivos do app (borda preta, sombra dura, inclinação)
+   para não se confundirem com os ícones redondos e lisos dos POIs do Google. */
+.map-real .pin {
+  top: -35px; /* a ponta do balão, e não o centro, fica sobre a coordenada */
+  width: 46px;
+  height: 46px;
+  border: var(--b2);
+  border-radius: 14px;
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: none;
+  transform: rotate(-6deg);
+}
+.map-real .pin::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -9px;
+  width: 14px;
+  height: 14px;
+  border-right: var(--b2);
+  border-bottom: var(--b2);
+  background: inherit;
+  transform: translateX(-50%) rotate(45deg);
+}
+.map-real .pin span { transform: none; }
+.map-real .pin .pin-glyph { position: relative; z-index: 1; display: grid; place-items: center; }
+.map-real .pin .pin-glyph .ui-icon { width: 24px; height: 24px; stroke-width: 2.6; }
+.map-real .pin.categoria-bar { background: var(--coral); color: var(--white); }
+.map-real .pin.categoria-restaurante { background: var(--sky); color: var(--ink); }
+.map-real .pin.categoria-mercado { background: var(--lime); color: var(--ink); }
+.map-real .pin.categoria-balada { background: var(--purple); color: var(--white); }
+.map-real .pin.categoria-show { background: var(--blue); color: var(--white); }
+.map-real .pin:hover,
+.map-real .pin:focus-visible { transform: rotate(0deg) scale(1.08); }
+.map-real .pin-count {
+  position: absolute;
+  z-index: 2;
+  top: -10px;
+  right: -10px;
+  display: grid;
+  min-width: 22px;
+  height: 22px;
+  place-items: center;
+  padding: 0 5px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--lime);
+  font: 900 10px/1 var(--font-mono);
+  transform: rotate(8deg);
+}
+/* nome do lugar numa etiqueta, só no mapa real */
+.pin-nome { display: none; }
+.map-real .pin .pin-nome {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 62px;
+  display: block;
+  max-width: 130px;
+  overflow: hidden;
+  padding: 3px 6px;
+  border: 2px solid var(--ink);
+  background: var(--white);
+  color: var(--ink);
+  font: 900 10px/1 var(--font-mono);
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transform: translateX(-50%) rotate(6deg);
+}
 
-/* créditos do OpenStreetMap e do OpenFreeMap, exigidos pela licença */
-.maplibregl-ctrl-attrib { font: 700 10px var(--font-mono); }
-.maplibregl-ctrl-attrib a { color: var(--muted); }
+/* No mapa real, os controles viram cartões flutuantes e leves. */
+.map.com-mapa { border-color: #dce5e0; border-radius: 28px; box-shadow: 0 18px 45px rgba(22, 24, 29, .18); }
+.map.com-mapa .map-note {
+  right: auto;
+  width: min(310px, calc(100% - 92px));
+  border: 2px solid rgba(255, 255, 255, .92);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, .88);
+  box-shadow: 0 8px 24px rgba(22, 24, 29, .18);
+  backdrop-filter: blur(12px);
+}
+.map.com-mapa .map-acoes .round-icon {
+  border: 3px solid var(--white);
+  border-radius: 50%;
+  background: var(--lime);
+  box-shadow: 0 6px 16px rgba(22, 24, 29, .24);
+}
 
 .map-acoes { position: absolute; z-index: 6; top: 12px; right: 12px; display: grid; gap: 8px; }
 .map-acoes .round-icon { width: 40px; height: 40px; font: 900 22px/1 var(--font-display); }
@@ -234,9 +391,10 @@ body.mapa-cheio .bottom-nav { display: none; }
   left: 50%;
   top: 46px;
   padding: 3px 6px;
-  border: var(--b1);
+  border: 2px solid var(--white);
+  border-radius: 999px;
   background: var(--white);
-  box-shadow: var(--s1);
+  box-shadow: 0 3px 10px rgba(22, 24, 29, .2);
   color: var(--ink);
   font: 900 10px/1 var(--font-mono);
   white-space: nowrap;
@@ -244,6 +402,8 @@ body.mapa-cheio .bottom-nav { display: none; }
 }
 .map-real .pin,
 .map-real .friend-dot { cursor: pointer; }
+.preview-actions { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.preview-actions .physical { padding-inline: 6px; font-size: 15px; }
 
 /* ---------- Detalhe do lugar ---------- */
 .detail-hero {
@@ -298,7 +458,7 @@ body.mapa-cheio .bottom-nav { display: none; }
 .trust strong { display: block; font: 900 25px var(--font-display); text-transform: uppercase; }
 .trust.sem { background: var(--paper); border-style: dashed; }
 
-.quick-actions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; margin: 20px 0; }
+.quick-actions { display: grid; grid-template-columns: repeat(5, 1fr); gap: 7px; margin: 20px 0; }
 .quick {
   display: grid;
   justify-items: center;
@@ -317,6 +477,35 @@ body.mapa-cheio .bottom-nav { display: none; }
 .quick .ui-icon { width: 24px; height: 24px; }
 .quick.is-on { background: var(--lime); }
 .quick:disabled { opacity: .5; cursor: not-allowed; }
+
+.streetview-sheet { padding: 16px; }
+.streetview-sheet h2 { margin-bottom: 12px; font-size: 28px; }
+.streetview-canvas {
+  width: 100%;
+  height: min(62dvh, 560px);
+  border: var(--b2);
+  background: var(--ink);
+}
+.streetview-status {
+  display: grid;
+  min-height: 170px;
+  place-items: center;
+  gap: 12px;
+  padding: 24px;
+  border: var(--b2);
+  background: var(--white);
+  font: 900 16px/1.4 var(--font-mono);
+  text-align: center;
+}
+.streetview-status[hidden] { display: none; }
+/* quando a imagem existe e só precisamos avisar a distância */
+.streetview-status.nota {
+  min-height: 0;
+  margin-top: 8px;
+  padding: 9px 12px;
+  font: 800 11px/1.4 var(--font-mono);
+}
+.streetview-status a { color: var(--blue); }
 
 .live-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; margin: 18px 0; }
 .live-stat {
@@ -638,6 +827,12 @@ body.mapa-cheio .bottom-nav { display: none; }
 .retro-stat strong { display: block; font: 900 28px var(--font-display); text-transform: uppercase; overflow-wrap: anywhere; }
 .retro-stat span { font: 800 9px var(--font-mono); }
 .retro-sign { margin-top: 25px; padding-top: 12px; border-top: 2px dashed var(--white); font: 800 11px var(--font-mono); }
+
+/* ---------- Créditos (Privacidade) ---------- */
+/* A licença ODbL do OpenStreetMap pede que o crédito apareça para quem usa os
+   dados, não só no repositório: os endereços dos lugares vêm de lá. */
+.creditos { margin-top: 12px; font: 700 11px/1.5 var(--font-mono); color: var(--muted); }
+.creditos a { color: inherit; }
 
 /* ---------- Ajustes de componentes dentro das telas ---------- */
 .live-badge.tranquilo { font-size: 13px; }

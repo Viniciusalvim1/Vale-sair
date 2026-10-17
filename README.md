@@ -43,16 +43,26 @@ O projeto já aponta para o banco da equipe em `public/js/config.js`. Para criar
    supabase link --project-ref SEU_REF
    supabase db push
    ```
-2. **Lugares:** rode `supabase/seed.sql` (os 8 lugares de BH usados na demonstração).
+2. **Lugares:** rode `supabase/seed.sql` (18 lugares reais de Belo Horizonte — veja *Os lugares* abaixo).
 3. **Dados de demonstração (opcional):** `supabase/demo/dados-demo.sql` cria pessoas fictícias, Turma, Pulsos, Sala e um Chama aberto, para o app não ficar vazio na apresentação. Pode rodar de novo para renovar os Pulsos, que expiram em 2 horas. Para apagar: `supabase/demo/remover-demo.sql`.
 4. **Chaves:** copie a URL e a *publishable key* do projeto para `public/js/config.js`. Essa chave pode ficar no front-end: quem protege os dados são as políticas de RLS.
 5. **Autenticação:** em *Authentication → URL Configuration*, coloque o endereço do site publicado em **Site URL** e em **Redirect URLs**, para os links de confirmação de e-mail e de nova senha voltarem para o app.
 
+## Os lugares
+
+Os 18 lugares de `supabase/seed.sql` são estabelecimentos **reais** de Belo Horizonte — Mercado Central, Mercado Novo, Mercado Distrital de Santa Tereza, Cantina do Lucas, Sindicato do Chopp, Zona, A Obra, Jack Rock Bar, Duke'n'Duke, Moema, Albanos, Mercearia Lacerda, Bar do Museu Clube da Esquina, Casa do Samba Resenha, Granfinos, Bar do Bolão, BeFly Hall e Cine Theatro Brasil Vallourec.
+
+Nome, endereço e coordenadas vêm do **OpenStreetMap** (© colaboradores do OpenStreetMap, dados sob a licença [ODbL](https://www.openstreetmap.org/copyright)), consultados pela Overpass API. Gênero musical, música ao vivo e descrição foram preenchidos pela equipe; horário de fechamento e foto ficaram em branco de propósito, para ninguém publicar informação errada sobre um lugar de verdade.
+
+Como são lugares reais, os dados de `supabase/demo/` (movimento, fila, mensagens) são **inventados** e precisam ser removidos com `supabase/demo/remover-demo.sql` antes de qualquer uso público: ninguém deve ler "cheio, fila de 8 minutos" sobre um bar que não disse isso.
+
 ## Mapa do Radar
 
-O Radar usa **MapLibre GL JS** com os tiles abertos do **OpenFreeMap**. Não exige chave, conta, cartão ou faturamento. A biblioteca está versionada em `public/vendor/`, então a aplicação não depende de uma CDN para carregar o código do mapa; os tiles e as fontes continuam vindo da internet.
+O Radar usa a **Google Maps JavaScript API**. Os estabelecimentos do mapa-base continuam visíveis e clicáveis, e o controle do Pegman permite entrar no Street View. Na página de cada lugar, o botão **Street View** abre diretamente a imagem panorâmica mais próxima das coordenadas cadastradas.
 
-O estilo inspirado no Bump fica em `public/js/ui/estilo-mapa.js`, e os marcadores são componentes HTML do próprio app, posicionados pelo MapLibre (`public/js/ui/mapa.js`). Se os tiles estiverem indisponíveis, a interface continua utilizável e informa a falha sem derrubar as outras telas.
+A chave de navegador fica em `public/js/config.js`. No Google Cloud, ela deve ter restrição de aplicativo por **sites (HTTP referrers)** e restrição de API somente para **Maps JavaScript API**. Cadastre `http://localhost:8000/*` para desenvolvimento e os domínios reais da publicação. O Google Maps exige faturamento habilitado e aplica sua própria cota; o app carrega a API somente quando o Radar ou o Street View são usados.
+
+Os marcadores sociais continuam sendo componentes HTML do Vale Sair, posicionados sobre o Google Maps por `public/js/ui/mapa.js`. Se o serviço estiver indisponível, o Radar mantém o mapa ilustrado como alternativa. Avaliações detalhadas dentro da interface não fazem parte desta integração: para exibi-las em componentes próprios, seria necessário habilitar também a **Places API** e respeitar suas regras de exibição.
 
 ## Testes
 
@@ -60,7 +70,7 @@ O estilo inspirado no Bump fica em `public/js/ui/estilo-mapa.js`, e os marcadore
 npm test
 ```
 
-São 31 testes: 17 aplicam as migrations reais num PostgreSQL em memória e conferem regras de negócio, RLS e privilégios (inclusive tentando burlá-los), e 14 cobrem formatação, proteção contra XSS e o mapa do front-end.
+São 35 testes: 17 aplicam as migrations reais num PostgreSQL em memória e conferem regras de negócio, RLS e privilégios (inclusive tentando burlá-los), e 18 cobrem formatação, proteção contra XSS, Google Maps, mapa social e Street View no front-end.
 
 ## Estrutura
 
@@ -69,7 +79,7 @@ public/                 o app (é o que vai para o ar)
 ├── *.html              uma página por tela
 ├── css/                tokens, base, layout, componentes, telas e movimento
 ├── js/
-│   ├── config.js       URL e chave pública do Supabase
+│   ├── config.js       chaves públicas do Supabase e Google Maps
 │   ├── api/            sessão, cliente REST, autenticação e operações
 │   ├── ui/             HTML seguro, formatação, componentes e efeitos
 │   └── paginas/        um módulo por tela
@@ -77,7 +87,7 @@ public/                 o app (é o que vai para o ar)
 
 supabase/
 ├── migrations/         estrutura, regras de negócio, views, segurança, storage e catálogos
-├── seed.sql            lugares de Belo Horizonte
+├── seed.sql            os 18 lugares reais de Belo Horizonte (OpenStreetMap)
 └── demo/               dados fictícios para testes e apresentação
 
 docs/                   documentação do projeto
