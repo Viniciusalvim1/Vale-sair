@@ -642,3 +642,24 @@
   font: 900 10px var(--font-mono);
   white-space: nowrap;
 }
+
+/* Selo do modo mock (js/api/mock.js): lembra que os dados são de demonstração */
+/* aba vertical na borda esquerda: não cobre os botões dos cantos */
+.mock-selo {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  z-index: 60;
+  padding: 8px 2px;
+  border: var(--b1);
+  border-left: 0;
+  box-shadow: var(--s1);
+  writing-mode: vertical-rl;
+  background: var(--lime);
+  color: var(--ink);
+  font: 700 9px/1 var(--font-mono);
+  letter-spacing: .08em;
+  text-decoration: none;
+  opacity: .9;
+  transform: translateY(-50%) rotate(180deg);
+}

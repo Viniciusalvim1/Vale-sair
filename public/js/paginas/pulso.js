@@ -76,7 +76,7 @@ async function escolherArquivo(evento) {
     }
     arquivo = escolhido;
     mostrarPrevia(escolhido, video);
-    $('#infoArquivo').textContent = `${video ? 'Vídeo' : 'Foto'} pronto para publicar, do jeito que está.`;
+    $('#infoArquivo').textContent = `${video ? 'Vídeo pronto' : 'Foto pronta'} para publicar, do jeito que está.`;
   } catch (erro) {
     evento.target.value = '';
     avisar(erro.message);

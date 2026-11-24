@@ -3,6 +3,16 @@ import { SUPABASE_URL, SUPABASE_KEY } from '../config.js';
 import { ErroApi, traduzirErro } from './http.js';
 import { lerSessao, salvarSessao, limparSessao, tokenDeAcesso } from './sessao.js';
 import { destinoSeguro } from '../ui/formatos.js';
+import { mockAtivo, sessaoMock } from './mock.js';
+
+// Modo mock (api/mock.js): entra direto como "Você (demo)". Roda ao carregar o
+// módulo, antes do código das páginas, que lê o usuário logo no início.
+// Fora do mock, a sessão falsa é descartada: ela não vale no Supabase.
+if (mockAtivo()) {
+  if (!lerSessao()) salvarSessao(sessaoMock());
+} else if (lerSessao()?.access_token === 'mock') {
+  limparSessao();
+}
 
 async function chamarAuth(caminho, { metodo = 'POST', corpo, token } = {}) {
   const headers = { apikey: SUPABASE_KEY, 'Content-Type': 'application/json' };

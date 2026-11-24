@@ -10,6 +10,10 @@ export const GOOGLE_MAPS_KEY = 'AIzaSyCYoxO4x2fci6rIUnPDbu4Pzd97WvzlZts';
 // Preencha depois de publicar o estilo no Google Cloud. Map IDs não são secretos.
 export const GOOGLE_MAP_ID = 'a9c69b95c8fe9ebda601d45d';
 
+// Modo mock (js/api/mock.js): Pulsos, lugares e feed funcionam sem o Supabase,
+// com dados só neste navegador. Também liga com ?mock=1 e desliga com ?mock=0.
+export const MODO_MOCK = false;
+
 export const BUCKET_PULSOS = 'pulsos';
 export const BUCKET_AVATARES = 'avatares';
 
