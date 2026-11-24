@@ -4,6 +4,7 @@ import { html, icone, seguro, $ } from './dom.js';
 import { explosao, reiniciarAnimacao } from './feedback.js';
 import { notificacoes } from '../api/dados.js';
 import { lerSessao } from '../api/sessao.js';
+import { mockAtivo } from '../api/mock.js';
 
 const ITENS = [
   { id: 'agora', rotulo: 'AGORA', longo: 'AGORA', href: 'agora.html', icone: 'spark' },
@@ -63,6 +64,12 @@ export function montarShell({ navegacao = true } = {}) {
     'beforeend',
     '<div class="toast" role="status" aria-live="polite"></div><div class="fx-layer" aria-hidden="true"></div>',
   );
+  if (mockAtivo()) {
+    document.body.insertAdjacentHTML(
+      'beforeend',
+      '<a class="mock-selo" href="?mock=0" title="Dados de demonstração, só neste navegador. Toque para sair.">MODO DEMO · SAIR</a>',
+    );
+  }
   ligarEfeitos();
   if (navegacao) atualizarContador();
 }

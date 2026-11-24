@@ -4,6 +4,7 @@ import { rest, storage } from './http.js';
 import { usuarioAtual } from './sessao.js';
 import { BUCKET_PULSOS, BUCKET_AVATARES } from '../config.js';
 import { extensaoDoArquivo } from '../ui/formatos.js';
+import { mockAtivo, criarApiMock } from './mock.js';
 
 const agoraIso = () => new Date().toISOString();
 const emLista = (ids) => `(${ids.join(',')})`;
@@ -169,3 +170,19 @@ export const notificacoes = {
   naoLidas: async () => (await rest.listar('notificacoes', { select: 'id', lida: 'eq.false', limit: 99 })).length,
   marcarTodasComoLidas: () => rest.atualizar('notificacoes', { lida: 'eq.false' }, { lida: true }),
 };
+
+// ---------- Modo mock ----------
+// Com ?mock=1 (ou MODO_MOCK em config.js), lugares, Pulsos, presença, salvos,
+// Sala e avisos
+// passam a vir de js/api/mock.js. As páginas não mudam nada.
+// Turmas, Chamas, Cenas e perfil continuam no Supabase.
+export const modoMock = mockAtivo();
+if (modoMock) {
+  const mock = criarApiMock();
+  Object.assign(locais, mock.locais);
+  Object.assign(pulsos, mock.pulsos);
+  Object.assign(presenca, mock.presenca);
+  Object.assign(salvos, mock.salvos);
+  Object.assign(sala, mock.sala);
+  Object.assign(notificacoes, mock.notificacoes);
+}

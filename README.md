@@ -34,6 +34,12 @@ npm run dev     # http://localhost:8000
 
 Também funciona com a extensão **Live Server** do VS Code, apontando para a pasta `public/`.
 
+## Modo mock (Pulso sem Supabase)
+
+Para apresentar ou testar o Pulso sem depender do banco, abra qualquer página com **`?mock=1`** (por exemplo `http://localhost:8000/pulso.html?mock=1`). O modo fica ligado neste navegador até você abrir uma página com **`?mock=0`** ou tocar no selo **MODO DEMO · SAIR** na borda da tela. Para deixar sempre ligado, use `MODO_MOCK = true` em `public/js/config.js`.
+
+No modo mock você entra direto como *Você (demo)* e funcionam, sem rede: escolher o lugar, fotografar ou gravar, publicar o Pulso, ver no feed **Ao vivo**, reagir, confirmar, *Tô aqui*, salvar o lugar e a Sala. Os 18 lugares e os 22 Pulsos são os mesmos do `seed.sql` e do `dados-demo.sql`, com horários recalculados para nunca expirarem. O que você publica fica só no seu navegador (`localStorage` e, para foto e vídeo, IndexedDB) e segue as regras do banco: vale 2 horas, legenda até 80 caracteres e um Pulso por lugar a cada 10 minutos. Turmas, Chamas, Cenas e perfil continuam usando o Supabase.
+
 ## Configurando o Supabase
 
 O projeto já aponta para o banco da equipe em `public/js/config.js`. Para criar outro do zero:
@@ -70,7 +76,7 @@ Os marcadores sociais continuam sendo componentes HTML do Vale Sair, posicionado
 npm test
 ```
 
-São 35 testes: 17 aplicam as migrations reais num PostgreSQL em memória e conferem regras de negócio, RLS e privilégios (inclusive tentando burlá-los), e 18 cobrem formatação, proteção contra XSS, Google Maps, mapa social e Street View no front-end.
+São 35 testes (mais os do modo mock em `tests/mock.test.mjs`): 17 aplicam as migrations reais num PostgreSQL em memória e conferem regras de negócio, RLS e privilégios (inclusive tentando burlá-los), e 18 cobrem formatação, proteção contra XSS, Google Maps, mapa social e Street View no front-end.
 
 ## Estrutura
 
